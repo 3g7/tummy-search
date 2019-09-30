@@ -1,0 +1,21 @@
+server:
+  port: 5438
+   
+spring:
+  application:
+    name: tummy-search
+  data:
+    mongodb:
+      uri: mongodb://rwuser:ZAQ!xsw2@112.126.99.91:27017/msgcenter
+      autoConnectRetry: true
+      socketKeepAlive: true
+      socketTimeout: 1500
+  servlet:
+    multipart:
+      max-file-size: -1
+      
+dubbo:
+  scan:
+    base-packages: com.fayelau.tummy.search.service.impl
+  registry:
+    address: zookeeper://control.fayelau.com:12181
