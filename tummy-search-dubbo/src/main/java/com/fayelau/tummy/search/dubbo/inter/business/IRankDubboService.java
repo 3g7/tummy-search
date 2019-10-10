@@ -20,7 +20,7 @@ public interface IRankDubboService {
      * @param end
      * @param limit
      * @return
-     * @throws TummyException
+     * @throws Exception
      */
     public Collection<Rank> rankByTime(Long start, Long end, Long limit) throws Exception;
 

@@ -20,7 +20,7 @@ public interface IRssDubboService {
      * @param page
      * @param size
      * @return
-     * @throws TummyException
+     * @throws Exception
      */
     public Collection<Rss> pageableSearch(Rss rss, Integer page, Integer size, String sortProperty, String direction)
             throws Exception;

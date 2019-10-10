@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.base.core.utils.CommonConstants;
 import com.fayelau.tummy.base.core.utils.ResponseRange;
+import com.fayelau.tummy.search.core.constants.TummySearchCommonConstants;
 import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
 import com.fayelau.tummy.search.inter.service.store.IUenterService;
 import com.fayelau.tummy.store.entity.Uenter;
@@ -41,7 +41,7 @@ public class UenterRest {
         ResponseRange<Uenter> responseRange = new ResponseRange<>();
         try {
             Collection<Uenter> uenters = this.uenterService.search(uenter,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
+                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, TummySearchCommonConstants.DIRECTION_DESC);
             responseRange.setData(uenters);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
@@ -73,7 +73,7 @@ public class UenterRest {
             }
             responseRange.openPage(page, size);
             Collection<Uenter> uenters = this.uenterService.pageableSearch(uenter, page, size,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
+                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, TummySearchCommonConstants.DIRECTION_DESC);
             responseRange.setData(uenters);
             responseRange.setTotal(this.uenterService.count(uenter));
         } catch (TummyException e) {

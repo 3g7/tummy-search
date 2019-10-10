@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.base.core.utils.CommonConstants;
+import com.fayelau.tummy.search.core.constants.TummySearchCommonConstants;
 import com.fayelau.tummy.search.dubbo.inter.store.IUenterDubboService;
 import com.fayelau.tummy.search.inter.service.store.IUenterService;
 import com.fayelau.tummy.search.store.mongo.repository.IUenterRepository;
@@ -40,7 +40,7 @@ public class UenterService implements IUenterDubboService, IUenterService {
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.uenterRepository.search(uenter, sortProperty, d);
@@ -69,7 +69,7 @@ public class UenterService implements IUenterDubboService, IUenterService {
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.uenterRepository.pageableSearch(uenter, page, size, sortProperty, d);

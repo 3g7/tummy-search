@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.base.core.utils.CommonConstants;
+import com.fayelau.tummy.search.core.constants.TummySearchCommonConstants;
 import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
 import com.fayelau.tummy.search.dubbo.inter.store.IDgbDubboService;
 import com.fayelau.tummy.search.inter.service.store.IDgbService;
@@ -42,7 +42,7 @@ public class DgbService implements IDgbDubboService, IDgbService {
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.dgbRepository.search(dgb, sortProperty, d);
@@ -71,7 +71,7 @@ public class DgbService implements IDgbDubboService, IDgbService {
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.dgbRepository.pageableSearch(dgb, page, size, sortProperty, d);

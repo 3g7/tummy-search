@@ -20,7 +20,7 @@ public interface IDgbDubboService {
      * @param page
      * @param size
      * @return
-     * @throws TummyException
+     * @throws Exception
      */
     public Collection<Dgb> pageableSearch(Dgb dgb, Integer page, Integer size, String sortProperty, String direction)
             throws Exception;
