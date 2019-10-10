@@ -11,8 +11,8 @@ import com.fayelau.tummy.base.core.exception.TummyExCode;
 import com.fayelau.tummy.base.core.exception.TummyException;
 import com.fayelau.tummy.search.dubbo.inter.business.IRankDubboService;
 import com.fayelau.tummy.search.inter.service.business.IRankService;
-import com.fayelau.tummy.search.store.mongo.pojo.Rank;
 import com.fayelau.tummy.search.store.mongo.repository.IChatmsgRepository;
+import com.fayelau.tummy.store.pojo.Rank;
 
 /**
  * 排行榜相关实现

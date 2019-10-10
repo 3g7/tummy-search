@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.entity.Dgb;
+import com.fayelau.tummy.store.entity.Dgb;
 
 /**
  * 礼物实体

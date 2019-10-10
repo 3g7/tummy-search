@@ -14,8 +14,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.entity.Newblackres;
 import com.fayelau.tummy.search.store.mongo.repository.INewblackresRepository;
+import com.fayelau.tummy.store.entity.Newblackres;
 
 /**
  * 
@@ -30,6 +30,8 @@ public class NewblackresRepository extends BaseRepository implements INewblackre
 
     @Autowired
     private MongoTemplate mongoTemplate;
+    
+    private static final String COLLECTION_NAME = "newblackres";
 
     @Override
     public Collection<Newblackres> search(Newblackres newblackres, String sortProperty, Direction direction)
@@ -43,7 +45,7 @@ public class NewblackresRepository extends BaseRepository implements INewblackre
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
-            return mongoTemplate.find(query, Newblackres.class);
+            return mongoTemplate.find(query, Newblackres.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -72,7 +74,7 @@ public class NewblackresRepository extends BaseRepository implements INewblackre
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
-            return mongoTemplate.find(query, Newblackres.class);
+            return mongoTemplate.find(query, Newblackres.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -92,7 +94,7 @@ public class NewblackresRepository extends BaseRepository implements INewblackre
         }
         try {
             Query query = buildQuery(newblackres);
-            return mongoTemplate.count(query, Newblackres.class);
+            return mongoTemplate.count(query, Newblackres.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

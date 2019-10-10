@@ -14,8 +14,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.entity.Blab;
 import com.fayelau.tummy.search.store.mongo.repository.IBlabRepository;
+import com.fayelau.tummy.store.entity.Blab;
 
 /**
  * 粉丝牌升级持久化查询实现
@@ -31,6 +31,8 @@ public class BlabRepository extends BaseRepository implements IBlabRepository {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+    
+    private static final String COLLECTION_NAME = "blab";
 
     /**
      * {@inheritDoc}
@@ -48,7 +50,7 @@ public class BlabRepository extends BaseRepository implements IBlabRepository {
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
-            return mongoTemplate.find(query, Blab.class);
+            return mongoTemplate.find(query, Blab.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -76,7 +78,7 @@ public class BlabRepository extends BaseRepository implements IBlabRepository {
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
-            return mongoTemplate.find(query, Blab.class);
+            return mongoTemplate.find(query, Blab.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -96,7 +98,7 @@ public class BlabRepository extends BaseRepository implements IBlabRepository {
         }
         try {
             Query query = buildQuery(blab);
-            return mongoTemplate.count(query, Blab.class);
+            return mongoTemplate.count(query, Blab.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

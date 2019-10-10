@@ -19,9 +19,9 @@ import org.springframework.stereotype.Repository;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
 import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
-import com.fayelau.tummy.search.store.mongo.entity.Chatmsg;
-import com.fayelau.tummy.search.store.mongo.pojo.Rank;
 import com.fayelau.tummy.search.store.mongo.repository.IChatmsgRepository;
+import com.fayelau.tummy.store.entity.Chatmsg;
+import com.fayelau.tummy.store.pojo.Rank;
 
 /**
  * 弹幕持久化查询实现
@@ -37,6 +37,8 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
 
     @Autowired
     private MongoTemplate mongoTemplate;
+    
+    private static final String COLLECTION_NAME = "chatmsg";
 
     /**
      * {@inheritDoc}
@@ -52,7 +54,7 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
-            return mongoTemplate.find(query, Chatmsg.class);
+            return mongoTemplate.find(query, Chatmsg.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -81,7 +83,7 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
-            return mongoTemplate.find(query, Chatmsg.class);
+            return mongoTemplate.find(query, Chatmsg.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -101,7 +103,7 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
         }
         try {
             Query query = buildQuery(chatmsg);
-            return mongoTemplate.count(query, Chatmsg.class);
+            return mongoTemplate.count(query, Chatmsg.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -120,7 +122,7 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
         }
         try {
             Query query = buildTime(buildQuery(chatmsg), start, end);
-            return mongoTemplate.count(query, Chatmsg.class);
+            return mongoTemplate.count(query, Chatmsg.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -144,7 +146,7 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
                             .as("nickname").count().as("count"),
                     Aggregation.sort(Sort.by(Direction.DESC, "count")), Aggregation.limit(limit));
 
-            AggregationResults<Rank> results = this.mongoTemplate.aggregate(aggregation, Chatmsg.class, Rank.class);
+            AggregationResults<Rank> results = this.mongoTemplate.aggregate(aggregation, COLLECTION_NAME, Rank.class);
             List<Rank> ranks = results.getMappedResults();
             for (int rankNum = 1; rankNum <= ranks.size(); rankNum++) {
                 ranks.get(rankNum - 1).setRank(rankNum);

@@ -2,8 +2,7 @@ package com.fayelau.tummy.search.dubbo.inter.business;
 
 import java.util.Collection;
 
-import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.pojo.Rank;
+import com.fayelau.tummy.store.pojo.Rank;
 
 /**
  * Dubbo 排行相关接口
@@ -23,6 +22,6 @@ public interface IRankDubboService {
      * @return
      * @throws TummyException
      */
-    public Collection<Rank> rankByTime(Long start, Long end, Long limit) throws TummyException;
+    public Collection<Rank> rankByTime(Long start, Long end, Long limit) throws Exception;
 
 }

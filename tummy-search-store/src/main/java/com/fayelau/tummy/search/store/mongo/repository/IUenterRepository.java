@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.entity.Uenter;
+import com.fayelau.tummy.store.entity.Uenter;
 
 /**
  * 入场持久化查询接口

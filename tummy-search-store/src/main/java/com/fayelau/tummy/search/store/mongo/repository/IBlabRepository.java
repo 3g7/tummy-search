@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.entity.Blab;
+import com.fayelau.tummy.store.entity.Blab;
 
 /**
  * 粉丝牌升级实体持久化查询接口

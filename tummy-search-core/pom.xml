@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.fayelau</groupId>
         <artifactId>tummy-search</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.1</version>
     </parent>
     <artifactId>tummy-search-core</artifactId>
 
@@ -13,7 +13,8 @@
         <dependency>
             <groupId>com.fayelau</groupId>
             <artifactId>tummy-base-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
+
 </project>

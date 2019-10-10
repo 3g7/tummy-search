@@ -5,16 +5,16 @@ import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
+import com.fayelau.tummy.base.core.utils.CommonConstants;
 import com.fayelau.tummy.base.core.utils.ResponseRange;
 import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
 import com.fayelau.tummy.search.inter.service.store.IBlabService;
-import com.fayelau.tummy.search.store.mongo.entity.Blab;
+import com.fayelau.tummy.store.entity.Blab;
 
 /**
  * 粉丝牌升级信息请求
@@ -41,7 +41,7 @@ public class BlabRest {
         ResponseRange<Blab> responseRange = new ResponseRange<>();
         try {
             Collection<Blab> blabs = this.blabService.search(blab, TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY,
-                    Direction.DESC);
+                    CommonConstants.DIRECTION_DESC);
             responseRange.setData(blabs);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
@@ -73,7 +73,7 @@ public class BlabRest {
             }
             responseRange.openPage(page, size);
             Collection<Blab> blabs = this.blabService.pageableSearch(blab, page, size,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, Direction.DESC);
+                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(blabs);
             responseRange.setTotal(this.blabService.count(blab));
         } catch (TummyException e) {

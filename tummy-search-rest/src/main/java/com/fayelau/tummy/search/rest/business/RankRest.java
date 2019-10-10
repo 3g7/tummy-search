@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fayelau.tummy.base.core.exception.TummyException;
 import com.fayelau.tummy.base.core.utils.ResponseRange;
 import com.fayelau.tummy.search.inter.service.business.IRankService;
-import com.fayelau.tummy.search.store.mongo.pojo.Rank;
+import com.fayelau.tummy.store.pojo.Rank;
 
 /**
  * 排行请求接口

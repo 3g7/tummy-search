@@ -5,16 +5,16 @@ import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
+import com.fayelau.tummy.base.core.utils.CommonConstants;
 import com.fayelau.tummy.base.core.utils.ResponseRange;
 import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
 import com.fayelau.tummy.search.inter.service.store.INewblackresService;
-import com.fayelau.tummy.search.store.mongo.entity.Newblackres;
+import com.fayelau.tummy.store.entity.Newblackres;
 
 /**
  * 黑名单回执请求
@@ -41,7 +41,7 @@ public class NewblackresRest {
         ResponseRange<Newblackres> responseRange = new ResponseRange<>();
         try {
             Collection<Newblackres> newblackreses = this.newblackresService.search(newblackres,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, Direction.DESC);
+                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(newblackreses);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
@@ -73,7 +73,7 @@ public class NewblackresRest {
             }
             responseRange.openPage(page, size);
             Collection<Newblackres> newblackreses = this.newblackresService.pageableSearch(newblackres, page, size,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, Direction.DESC);
+                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(newblackreses);
             responseRange.setTotal(this.newblackresService.count(newblackres));
         } catch (TummyException e) {

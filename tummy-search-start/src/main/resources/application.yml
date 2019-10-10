@@ -6,7 +6,7 @@ spring:
     name: tummy-search
   data:
     mongodb:
-      uri: mongodb://rwuser:ZAQ!xsw2@112.126.99.91:27017/msgcenter
+      uri: mongodb://rwuser:ZAQ!xsw2@112.126.99.91:27017/msgcenter?maxPoolSize=10
       autoConnectRetry: true
       socketKeepAlive: true
       socketTimeout: 1500

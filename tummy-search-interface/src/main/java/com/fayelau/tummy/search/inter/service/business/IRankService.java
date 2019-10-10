@@ -3,7 +3,7 @@ package com.fayelau.tummy.search.inter.service.business;
 import java.util.Collection;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.pojo.Rank;
+import com.fayelau.tummy.store.pojo.Rank;
 
 /**
  * 排行相关接口
