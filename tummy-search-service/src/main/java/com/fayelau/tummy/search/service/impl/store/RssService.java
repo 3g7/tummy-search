@@ -9,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
+import com.fayelau.tummy.base.core.utils.CommonConstants;
 import com.fayelau.tummy.search.dubbo.inter.store.IRssDubboService;
 import com.fayelau.tummy.search.inter.service.store.IRssService;
-import com.fayelau.tummy.search.store.mongo.entity.Rss;
 import com.fayelau.tummy.search.store.mongo.repository.IRssRepository;
+import com.fayelau.tummy.store.entity.Rss;
 
 /**
  * 开关播提醒业务层接口
@@ -30,7 +31,7 @@ public class RssService implements IRssDubboService, IRssService {
     private IRssRepository rssRepository;
 
     @Override
-    public Collection<Rss> search(Rss rss, String sortProperty, Direction direction) throws TummyException {
+    public Collection<Rss> search(Rss rss, String sortProperty, String direction) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run RssService.search");
             logger.debug("params rss:" + rss);
@@ -38,7 +39,11 @@ public class RssService implements IRssDubboService, IRssService {
             logger.debug("params direction:" + direction);
         }
         try {
-            return this.rssRepository.search(rss, sortProperty, direction);
+            Direction d = Direction.DESC;
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+                d = Direction.ASC;
+            }
+            return this.rssRepository.search(rss, sortProperty, d);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -53,7 +58,7 @@ public class RssService implements IRssDubboService, IRssService {
     }
 
     @Override
-    public Collection<Rss> pageableSearch(Rss rss, Integer page, Integer size, String sortProperty, Direction direction)
+    public Collection<Rss> pageableSearch(Rss rss, Integer page, Integer size, String sortProperty, String direction)
             throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run RssService.search");
@@ -63,7 +68,11 @@ public class RssService implements IRssDubboService, IRssService {
             logger.debug("params direction:" + direction);
         }
         try {
-            return this.rssRepository.pageableSearch(rss, page, size, sortProperty, direction);
+            Direction d = Direction.DESC;
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+                d = Direction.ASC;
+            }
+            return this.rssRepository.pageableSearch(rss, page, size, sortProperty, d);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

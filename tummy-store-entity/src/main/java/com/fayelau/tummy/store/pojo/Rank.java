@@ -1,4 +1,4 @@
-package com.fayelau.tummy.search.store.mongo.pojo;
+package com.fayelau.tummy.store.pojo;
 
 /**
  * 排行类

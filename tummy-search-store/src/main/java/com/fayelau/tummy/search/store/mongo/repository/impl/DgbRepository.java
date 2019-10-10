@@ -14,8 +14,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.entity.Dgb;
 import com.fayelau.tummy.search.store.mongo.repository.IDgbRepository;
+import com.fayelau.tummy.store.entity.Dgb;
 
 /**
  * 礼物持久化查询实现
@@ -31,6 +31,8 @@ public class DgbRepository extends BaseRepository implements IDgbRepository {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+    
+    private static final String COLLECTION_NAME = "dgb";
 
     /**
      * {@inheritDoc}
@@ -46,7 +48,7 @@ public class DgbRepository extends BaseRepository implements IDgbRepository {
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
-            return mongoTemplate.find(query, Dgb.class);
+            return mongoTemplate.find(query, Dgb.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -74,7 +76,7 @@ public class DgbRepository extends BaseRepository implements IDgbRepository {
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
-            return mongoTemplate.find(query, Dgb.class);
+            return mongoTemplate.find(query, Dgb.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -94,7 +96,7 @@ public class DgbRepository extends BaseRepository implements IDgbRepository {
         }
         try {
             Query query = buildQuery(dgb);
-            return mongoTemplate.count(query, Dgb.class);
+            return mongoTemplate.count(query, Dgb.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

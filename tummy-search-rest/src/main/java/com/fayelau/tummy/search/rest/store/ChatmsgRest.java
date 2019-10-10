@@ -6,18 +6,18 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fayelau.tummy.base.core.exception.TummyExCode;
 import com.fayelau.tummy.base.core.exception.TummyException;
+import com.fayelau.tummy.base.core.utils.CommonConstants;
 import com.fayelau.tummy.base.core.utils.ResponseRange;
 import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
 import com.fayelau.tummy.search.core.utils.TimeUtils;
 import com.fayelau.tummy.search.inter.service.store.IChatmsgService;
-import com.fayelau.tummy.search.store.mongo.entity.Chatmsg;
+import com.fayelau.tummy.store.entity.Chatmsg;
 
 /**
  * 弹幕消息请求
@@ -44,7 +44,7 @@ public class ChatmsgRest {
         ResponseRange<Chatmsg> responseRange = new ResponseRange<>();
         try {
             Collection<Chatmsg> chatmsgs = this.chatmsgService.search(chatmsg,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, Direction.DESC);
+                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(chatmsgs);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
@@ -76,7 +76,7 @@ public class ChatmsgRest {
             }
             responseRange.openPage(page, size);
             Collection<Chatmsg> chatmsgs = this.chatmsgService.pageableSearch(chatmsg, page, size,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, Direction.DESC);
+                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(chatmsgs);
             responseRange.setTotal(this.chatmsgService.count(chatmsg));
         } catch (TummyException e) {

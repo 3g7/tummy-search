@@ -2,10 +2,8 @@ package com.fayelau.tummy.search.inter.service.store;
 
 import java.util.Collection;
 
-import org.springframework.data.domain.Sort.Direction;
-
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.entity.Newblackres;
+import com.fayelau.tummy.store.entity.Newblackres;
 
 /**
  * 黑名单回执业务层接口
@@ -23,7 +21,7 @@ public interface INewblackresService {
      * @return
      * @throws TummyException
      */
-    public Collection<Newblackres> search(Newblackres newblackres, String sortProperty, Direction direction)
+    public Collection<Newblackres> search(Newblackres newblackres, String sortProperty, String direction)
             throws TummyException;
 
     /**
@@ -36,7 +34,7 @@ public interface INewblackresService {
      * @throws TummyException
      */
     public Collection<Newblackres> pageableSearch(Newblackres newblackres, Integer page, Integer size,
-            String sortProperty, Direction direction) throws TummyException;
+            String sortProperty, String direction) throws TummyException;
     
     /**
      * 查询数据条数根据条件

@@ -1,69 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.fayelau</groupId>
-    <artifactId>tummy-search</artifactId>
+    <artifactId>tummy-store-entity</artifactId>
     <version>1.0.1</version>
-    <packaging>pom</packaging>
-    <name>tummy-search</name>
-    <description>肚子平台搜索模块</description>
-
-    <!-- author: 3g7 -->
-    <!-- date: 2019-09-06 23:30:40 -->
-
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
-        <relativePath />
-    </parent>
-
-    <properties>
-        <java.version>1.8</java.version>
-        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-        <dubbo.version>2.7.3</dubbo.version>
-        <spring-boot.version>2.1.7.RELEASE</spring-boot.version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <!-- Spring Boot -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Apache Dubbo -->
-            <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-dependencies-bom</artifactId>
-                <version>${dubbo.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-        </dependencies>
-    </dependencyManagement>
-
-    <dependencies>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-
-    </dependencies>
+    <packaging>jar</packaging>
+    <name>tummy-store-entity</name>
+    <description>肚子数据持久化实体</description>
 
     <licenses>
         <license>
@@ -158,14 +103,11 @@
         </repository>
     </distributionManagement>
 
-    <modules>
-        <module>tummy-search-start</module>
-        <module>tummy-search-interface</module>
-        <module>tummy-search-repository</module>
-        <module>tummy-search-service</module>
-        <module>tummy-search-store</module>
-        <module>tummy-search-core</module>
-        <module>tummy-search-entity</module>
-        <module>tummy-search-rest</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+    </dependencies>
 </project>

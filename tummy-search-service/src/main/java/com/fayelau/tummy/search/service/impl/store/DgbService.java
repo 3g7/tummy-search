@@ -10,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
+import com.fayelau.tummy.base.core.utils.CommonConstants;
 import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
 import com.fayelau.tummy.search.dubbo.inter.store.IDgbDubboService;
 import com.fayelau.tummy.search.inter.service.store.IDgbService;
-import com.fayelau.tummy.search.store.mongo.entity.Dgb;
 import com.fayelau.tummy.search.store.mongo.repository.IDgbRepository;
+import com.fayelau.tummy.store.entity.Dgb;
 
 /**
  * 礼物业务层接口
@@ -32,7 +33,7 @@ public class DgbService implements IDgbDubboService, IDgbService {
     private IDgbRepository dgbRepository;
 
     @Override
-    public Collection<Dgb> search(Dgb dgb, String sortProperty, Direction direction) throws TummyException {
+    public Collection<Dgb> search(Dgb dgb, String sortProperty, String direction) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run DgbService.search");
             logger.debug("params dgb:" + dgb);
@@ -40,7 +41,11 @@ public class DgbService implements IDgbDubboService, IDgbService {
             logger.debug("params direction:" + direction);
         }
         try {
-            return this.dgbRepository.search(dgb, sortProperty, direction);
+            Direction d = Direction.DESC;
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+                d = Direction.ASC;
+            }
+            return this.dgbRepository.search(dgb, sortProperty, d);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -56,7 +61,7 @@ public class DgbService implements IDgbDubboService, IDgbService {
 
     @Override
     public Collection<Dgb> pageableSearch(Dgb dgb, Integer page, Integer size, String sortProperty,
-            Direction direction) throws TummyException {
+            String direction) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run DgbService.search");
             logger.debug("params page:" + page);
@@ -65,7 +70,11 @@ public class DgbService implements IDgbDubboService, IDgbService {
             logger.debug("params direction:" + direction);
         }
         try {
-            return this.dgbRepository.pageableSearch(dgb, page, size, sortProperty, direction);
+            Direction d = Direction.DESC;
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+                d = Direction.ASC;
+            }
+            return this.dgbRepository.pageableSearch(dgb, page, size, sortProperty, d);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

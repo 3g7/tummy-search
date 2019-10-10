@@ -14,9 +14,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.entity.Rss;
-import com.fayelau.tummy.search.store.mongo.entity.Uenter;
 import com.fayelau.tummy.search.store.mongo.repository.IUenterRepository;
+import com.fayelau.tummy.store.entity.Rss;
+import com.fayelau.tummy.store.entity.Uenter;
 
 /**
  * 进场消息持久化查询实现
@@ -32,6 +32,8 @@ public class UenterRepository extends BaseRepository implements IUenterRepositor
 
     @Autowired
     private MongoTemplate mongoTemplate;
+    
+    private static final String COLLECTION_NAME = "uenter";
 
     /**
      * {@inheritDoc}
@@ -47,7 +49,7 @@ public class UenterRepository extends BaseRepository implements IUenterRepositor
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
-            return mongoTemplate.find(query, Uenter.class);
+            return mongoTemplate.find(query, Uenter.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -75,7 +77,7 @@ public class UenterRepository extends BaseRepository implements IUenterRepositor
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
-            return mongoTemplate.find(query, Uenter.class);
+            return mongoTemplate.find(query, Uenter.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -95,7 +97,7 @@ public class UenterRepository extends BaseRepository implements IUenterRepositor
         }
         try {
             Query query = buildQuery(uenter);
-            return mongoTemplate.count(query, Rss.class);
+            return mongoTemplate.count(query, Rss.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

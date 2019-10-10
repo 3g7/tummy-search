@@ -1,9 +1,8 @@
-package com.fayelau.tummy.search.store.mongo.entity;
+package com.fayelau.tummy.store.entity;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * 弹幕实体
@@ -12,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @version 0.0.1
  *
  */
-@Document("chatmsg")
 public class Chatmsg extends BaseMongoEntity {
 
     private static final long serialVersionUID = 1L;

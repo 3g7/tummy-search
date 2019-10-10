@@ -1,6 +1,4 @@
-package com.fayelau.tummy.search.store.mongo.entity;
-
-import org.springframework.data.annotation.Id;
+package com.fayelau.tummy.store.entity;
 
 /**
  * mongo实体的通用字段
@@ -13,7 +11,6 @@ public class BaseMongoEntity implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
     protected String id; // 编号
 
     protected String roomId; // 房间号

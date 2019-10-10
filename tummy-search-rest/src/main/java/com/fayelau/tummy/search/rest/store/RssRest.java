@@ -5,16 +5,16 @@ import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
+import com.fayelau.tummy.base.core.utils.CommonConstants;
 import com.fayelau.tummy.base.core.utils.ResponseRange;
 import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
 import com.fayelau.tummy.search.inter.service.store.IRssService;
-import com.fayelau.tummy.search.store.mongo.entity.Rss;
+import com.fayelau.tummy.store.entity.Rss;
 
 /**
  * 开关播提醒请求
@@ -41,7 +41,7 @@ public class RssRest {
         ResponseRange<Rss> responseRange = new ResponseRange<>();
         try {
             Collection<Rss> rsses = this.rssService.search(rss,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, Direction.DESC);
+                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(rsses);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
@@ -73,7 +73,7 @@ public class RssRest {
             }
             responseRange.openPage(page, size);
             Collection<Rss> rsses = this.rssService.pageableSearch(rss, page, size,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, Direction.DESC);
+                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(rsses);
             responseRange.setTotal(this.rssService.count(rss));
         } catch (TummyException e) {

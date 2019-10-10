@@ -5,16 +5,16 @@ import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
+import com.fayelau.tummy.base.core.utils.CommonConstants;
 import com.fayelau.tummy.base.core.utils.ResponseRange;
 import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
 import com.fayelau.tummy.search.inter.service.store.IDgbService;
-import com.fayelau.tummy.search.store.mongo.entity.Dgb;
+import com.fayelau.tummy.store.entity.Dgb;
 
 /**
  * 礼物消息请求
@@ -41,7 +41,7 @@ public class DgbRest {
         ResponseRange<Dgb> responseRange = new ResponseRange<>();
         try {
             Collection<Dgb> dgbs = this.dgbService.search(dgb,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, Direction.DESC);
+                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(dgbs);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
@@ -73,7 +73,7 @@ public class DgbRest {
             }
             responseRange.openPage(page, size);
             Collection<Dgb> dgbs = this.dgbService.pageableSearch(dgb, page, size,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, Direction.DESC);
+                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(dgbs);
             responseRange.setTotal(this.dgbService.count(dgb));
         } catch (TummyException e) {
