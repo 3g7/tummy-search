@@ -18,7 +18,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
+import com.fayelau.tummy.search.core.constants.DefaultConstants;
 import com.fayelau.tummy.search.store.mongo.repository.IChatmsgRepository;
 import com.fayelau.tummy.store.entity.Chatmsg;
 import com.fayelau.tummy.store.pojo.Rank;
@@ -140,7 +140,7 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
             logger.debug("params limit:" + limit);
         }
         try {
-            Criteria criteria = Criteria.where(TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY).gte(start).lte(end);
+            Criteria criteria = Criteria.where(DefaultConstants.DEFAULT_SORT_PROPERTY).gte(start).lte(end);
             Aggregation aggregation = Aggregation.newAggregation(
                     Aggregation.match(criteria), Aggregation.group("uid").first("uid").as("uid").first("nickname")
                             .as("nickname").count().as("count"),

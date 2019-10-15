@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.base.core.utils.CommonConstants;
+import com.fayelau.tummy.search.core.constants.CommonConstants;
 import com.fayelau.tummy.search.dubbo.inter.store.IRssDubboService;
 import com.fayelau.tummy.search.inter.service.store.IRssService;
 import com.fayelau.tummy.search.store.mongo.repository.IRssRepository;

@@ -20,7 +20,7 @@ public interface IUenterDubboService {
      * @param page
      * @param size
      * @return
-     * @throws TummyException
+     * @throws Exception
      */
     public Collection<Uenter> pageableSearch(Uenter uenter, Integer page, Integer size, String sortProperty,
             String direction) throws Exception;

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.base.core.utils.CommonConstants;
 import com.fayelau.tummy.base.core.utils.ResponseRange;
-import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
+import com.fayelau.tummy.search.core.constants.CommonConstants;
+import com.fayelau.tummy.search.core.constants.DefaultConstants;
 import com.fayelau.tummy.search.inter.service.store.IBlabService;
 import com.fayelau.tummy.store.entity.Blab;
 
@@ -40,7 +40,7 @@ public class BlabRest {
         }
         ResponseRange<Blab> responseRange = new ResponseRange<>();
         try {
-            Collection<Blab> blabs = this.blabService.search(blab, TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY,
+            Collection<Blab> blabs = this.blabService.search(blab, DefaultConstants.DEFAULT_SORT_PROPERTY,
                     CommonConstants.DIRECTION_DESC);
             responseRange.setData(blabs);
         } catch (TummyException e) {
@@ -73,7 +73,7 @@ public class BlabRest {
             }
             responseRange.openPage(page, size);
             Collection<Blab> blabs = this.blabService.pageableSearch(blab, page, size,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
+                    DefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(blabs);
             responseRange.setTotal(this.blabService.count(blab));
         } catch (TummyException e) {

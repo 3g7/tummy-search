@@ -20,7 +20,7 @@ public interface IChatmsgDubboService {
      * @param page
      * @param size
      * @return
-     * @throws TummyException
+     * @throws Exception
      */
     public Collection<Chatmsg> pageableSearch(Chatmsg chatmsg, Integer page, Integer size, String sortProperty,
             String direction) throws Exception;
@@ -30,7 +30,7 @@ public interface IChatmsgDubboService {
      * 
      * @param chatmsg
      * @return
-     * @throws TummyException
+     * @throws Exception
      */
     public Long count(Chatmsg chatmsg) throws Exception;
 

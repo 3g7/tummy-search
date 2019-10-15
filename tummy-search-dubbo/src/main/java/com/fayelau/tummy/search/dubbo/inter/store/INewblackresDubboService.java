@@ -20,7 +20,7 @@ public interface INewblackresDubboService {
      * @param page
      * @param size
      * @return
-     * @throws TummyException
+     * @throws Exception
      */
     public Collection<Newblackres> pageableSearch(Newblackres newblackres, Integer page, Integer size,
             String sortProperty, String direction) throws Exception;

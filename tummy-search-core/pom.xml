@@ -13,6 +13,12 @@
         <dependency>
             <groupId>com.fayelau</groupId>
             <artifactId>tummy-base-core</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.fayelau</groupId>
+            <artifactId>tummy-search-entity</artifactId>
             <version>1.0.1</version>
         </dependency>
     </dependencies>

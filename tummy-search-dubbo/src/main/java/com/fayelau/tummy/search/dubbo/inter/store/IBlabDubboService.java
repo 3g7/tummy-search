@@ -20,7 +20,7 @@ public interface IBlabDubboService {
      * @param page
      * @param size
      * @return
-     * @throws TummyException
+     * @throws Exception
      */
     public Collection<Blab> pageableSearch(Blab blab, Integer page, Integer size, String sortProperty,
             String direction) throws Exception;
