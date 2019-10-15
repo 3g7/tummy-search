@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.core.constants.TummySearchCommonConstants;
-import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
+import com.fayelau.tummy.search.core.constants.CommonConstants;
+import com.fayelau.tummy.search.core.constants.DefaultConstants;
 import com.fayelau.tummy.search.dubbo.inter.store.IDgbDubboService;
 import com.fayelau.tummy.search.inter.service.store.IDgbService;
 import com.fayelau.tummy.search.store.mongo.repository.IDgbRepository;
@@ -42,7 +42,7 @@ public class DgbService implements IDgbDubboService, IDgbService {
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.dgbRepository.search(dgb, sortProperty, d);
@@ -71,7 +71,7 @@ public class DgbService implements IDgbDubboService, IDgbService {
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.dgbRepository.pageableSearch(dgb, page, size, sortProperty, d);
@@ -98,7 +98,7 @@ public class DgbService implements IDgbDubboService, IDgbService {
             if (!StringUtils.isEmpty(dgb.getNickname())) {
                 Dgb search = new Dgb();
                 search.setNickname(dgb.getNickname());
-                Collection<Dgb> dgbs = dgbRepository.pageableSearch(search, 1, 1, TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY,
+                Collection<Dgb> dgbs = dgbRepository.pageableSearch(search, 1, 1, DefaultConstants.DEFAULT_SORT_PROPERTY,
                         Direction.DESC);
                 if (dgbs.isEmpty()) {
                     return 0L;

@@ -7,8 +7,10 @@ package com.fayelau.tummy.search.core.constants;
  * @version 0.0.1
  *
  */
-public class TummySearchDefaultConstants {
+public class DefaultConstants {
     
     public static final String DEFAULT_SORT_PROPERTY = "timestamp";
+    
+    public static final String SYSTEM_SORT_PROPERTY = "created";
 
 }

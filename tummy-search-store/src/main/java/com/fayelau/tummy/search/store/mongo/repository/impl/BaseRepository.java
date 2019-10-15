@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import com.fayelau.tummy.base.core.utils.CommonUtils;
-import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
+import com.fayelau.tummy.search.core.constants.DefaultConstants;
 import com.mongodb.BasicDBObject;
 
 /**
@@ -29,7 +29,7 @@ public class BaseRepository {
     }
     
     protected Query buildTime(Query query, Long start, Long end) {
-        Criteria criteria = Criteria.where(TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY).gte(start).lte(end);
+        Criteria criteria = Criteria.where(DefaultConstants.DEFAULT_SORT_PROPERTY).gte(start).lte(end);
         query.addCriteria(criteria);
         return query;
     }

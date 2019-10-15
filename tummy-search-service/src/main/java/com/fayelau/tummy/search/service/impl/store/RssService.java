@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.core.constants.TummySearchCommonConstants;
+import com.fayelau.tummy.search.core.constants.CommonConstants;
 import com.fayelau.tummy.search.dubbo.inter.store.IRssDubboService;
 import com.fayelau.tummy.search.inter.service.store.IRssService;
 import com.fayelau.tummy.search.store.mongo.repository.IRssRepository;
@@ -40,7 +40,7 @@ public class RssService implements IRssDubboService, IRssService {
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.rssRepository.search(rss, sortProperty, d);
@@ -69,7 +69,7 @@ public class RssService implements IRssDubboService, IRssService {
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.rssRepository.pageableSearch(rss, page, size, sortProperty, d);

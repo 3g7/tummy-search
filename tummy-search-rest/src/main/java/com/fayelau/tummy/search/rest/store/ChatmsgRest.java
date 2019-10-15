@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fayelau.tummy.base.core.exception.TummyExCode;
 import com.fayelau.tummy.base.core.exception.TummyException;
 import com.fayelau.tummy.base.core.utils.ResponseRange;
-import com.fayelau.tummy.search.core.constants.TummySearchCommonConstants;
-import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
+import com.fayelau.tummy.search.core.constants.CommonConstants;
+import com.fayelau.tummy.search.core.constants.DefaultConstants;
 import com.fayelau.tummy.search.core.utils.TimeUtils;
 import com.fayelau.tummy.search.inter.service.store.IChatmsgService;
 import com.fayelau.tummy.store.entity.Chatmsg;
@@ -44,7 +44,7 @@ public class ChatmsgRest {
         ResponseRange<Chatmsg> responseRange = new ResponseRange<>();
         try {
             Collection<Chatmsg> chatmsgs = this.chatmsgService.search(chatmsg,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, TummySearchCommonConstants.DIRECTION_DESC);
+                    DefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(chatmsgs);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
@@ -76,7 +76,7 @@ public class ChatmsgRest {
             }
             responseRange.openPage(page, size);
             Collection<Chatmsg> chatmsgs = this.chatmsgService.pageableSearch(chatmsg, page, size,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, TummySearchCommonConstants.DIRECTION_DESC);
+                    DefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(chatmsgs);
             responseRange.setTotal(this.chatmsgService.count(chatmsg));
         } catch (TummyException e) {

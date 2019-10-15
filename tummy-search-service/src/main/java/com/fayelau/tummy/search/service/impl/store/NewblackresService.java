@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.core.constants.TummySearchCommonConstants;
+import com.fayelau.tummy.search.core.constants.CommonConstants;
 import com.fayelau.tummy.search.dubbo.inter.store.INewblackresDubboService;
 import com.fayelau.tummy.search.inter.service.store.INewblackresService;
 import com.fayelau.tummy.search.store.mongo.repository.INewblackresRepository;
@@ -41,7 +41,7 @@ public class NewblackresService implements INewblackresDubboService, INewblackre
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.newblackresRepository.search(newblackres, sortProperty, d);
@@ -70,7 +70,7 @@ public class NewblackresService implements INewblackresDubboService, INewblackre
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.newblackresRepository.pageableSearch(newblackres, page, size, sortProperty, d);

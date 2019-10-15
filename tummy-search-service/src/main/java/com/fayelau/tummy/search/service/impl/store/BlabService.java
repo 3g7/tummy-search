@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.core.constants.TummySearchCommonConstants;
-import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
+import com.fayelau.tummy.search.core.constants.CommonConstants;
+import com.fayelau.tummy.search.core.constants.DefaultConstants;
 import com.fayelau.tummy.search.dubbo.inter.store.IBlabDubboService;
 import com.fayelau.tummy.search.inter.service.store.IBlabService;
 import com.fayelau.tummy.search.store.mongo.repository.IBlabRepository;
@@ -42,7 +42,7 @@ public class BlabService implements IBlabDubboService, IBlabService {
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.blabRepository.search(blab, sortProperty, d);
@@ -71,7 +71,7 @@ public class BlabService implements IBlabDubboService, IBlabService {
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.blabRepository.pageableSearch(blab, page, size, sortProperty, d);
@@ -98,7 +98,7 @@ public class BlabService implements IBlabDubboService, IBlabService {
             if (!StringUtils.isEmpty(blab.getNickname())) {
                 Blab search = new Blab();
                 search.setNickname(blab.getNickname());
-                Collection<Blab> blabs = blabRepository.pageableSearch(search, 1, 1, TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY,
+                Collection<Blab> blabs = blabRepository.pageableSearch(search, 1, 1, DefaultConstants.DEFAULT_SORT_PROPERTY,
                         Direction.DESC);
                 if (blabs.isEmpty()) {
                     return 0L;

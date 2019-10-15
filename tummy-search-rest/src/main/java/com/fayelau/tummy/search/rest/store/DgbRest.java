@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
 import com.fayelau.tummy.base.core.utils.ResponseRange;
-import com.fayelau.tummy.search.core.constants.TummySearchCommonConstants;
-import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
+import com.fayelau.tummy.search.core.constants.CommonConstants;
+import com.fayelau.tummy.search.core.constants.DefaultConstants;
 import com.fayelau.tummy.search.inter.service.store.IDgbService;
 import com.fayelau.tummy.store.entity.Dgb;
 
@@ -41,7 +41,7 @@ public class DgbRest {
         ResponseRange<Dgb> responseRange = new ResponseRange<>();
         try {
             Collection<Dgb> dgbs = this.dgbService.search(dgb,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, TummySearchCommonConstants.DIRECTION_DESC);
+                    DefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(dgbs);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
@@ -73,7 +73,7 @@ public class DgbRest {
             }
             responseRange.openPage(page, size);
             Collection<Dgb> dgbs = this.dgbService.pageableSearch(dgb, page, size,
-                    TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY, TummySearchCommonConstants.DIRECTION_DESC);
+                    DefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
             responseRange.setData(dgbs);
             responseRange.setTotal(this.dgbService.count(dgb));
         } catch (TummyException e) {

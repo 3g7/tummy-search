@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.core.constants.TummySearchCommonConstants;
-import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
+import com.fayelau.tummy.search.core.constants.CommonConstants;
+import com.fayelau.tummy.search.core.constants.DefaultConstants;
 import com.fayelau.tummy.search.core.utils.TimeUtils;
 import com.fayelau.tummy.search.dubbo.inter.store.IChatmsgDubboService;
 import com.fayelau.tummy.search.inter.service.store.IChatmsgService;
@@ -43,7 +43,7 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.chatmsgRepository.search(chatmsg, sortProperty, d);
@@ -72,7 +72,7 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
         }
         try {
             Direction d = Direction.DESC;
-            if (direction.equals(TummySearchCommonConstants.DIRECTION_ASC)) {
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
             return this.chatmsgRepository.pageableSearch(chatmsg, page, size, sortProperty, d);
@@ -99,7 +99,7 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
             if (!StringUtils.isEmpty(chatmsg.getNickname())) {
                 Chatmsg search = new Chatmsg();
                 search.setNickname(chatmsg.getNickname());
-                Collection<Chatmsg> chatmsgs = chatmsgRepository.pageableSearch(search, 1, 1, TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY,
+                Collection<Chatmsg> chatmsgs = chatmsgRepository.pageableSearch(search, 1, 1, DefaultConstants.DEFAULT_SORT_PROPERTY,
                         Direction.DESC);
                 if (chatmsgs.isEmpty()) {
                     return 0L;
@@ -131,7 +131,7 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
             if (!StringUtils.isEmpty(chatmsg.getNickname())) {
                 Chatmsg search = new Chatmsg();
                 search.setNickname(chatmsg.getNickname());
-                Collection<Chatmsg> chatmsgs = chatmsgRepository.pageableSearch(search, 1, 1, TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY,
+                Collection<Chatmsg> chatmsgs = chatmsgRepository.pageableSearch(search, 1, 1, DefaultConstants.DEFAULT_SORT_PROPERTY,
                         Direction.DESC);
                 if (chatmsgs.isEmpty()) {
                     return 0L;
