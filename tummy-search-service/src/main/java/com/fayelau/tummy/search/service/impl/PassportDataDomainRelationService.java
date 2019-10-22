@@ -58,6 +58,11 @@ public class PassportDataDomainRelationService implements IPassportDataDomainRel
             passportDataDomainRelation.setEnable(CommonConstants.YES);
             passportDataDomainRelation.setLocking(CommonConstants.NO);
             return passportDataDomainRelationRepository.save(passportDataDomainRelation);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -82,6 +87,11 @@ public class PassportDataDomainRelationService implements IPassportDataDomainRel
                 saved.add(this.save(passportDataDomainRelation));
             }
             return saved;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -108,6 +118,11 @@ public class PassportDataDomainRelationService implements IPassportDataDomainRel
             passportDataDomainRelation.setModified(CommonUtils.currentMillis());
             passportDataDomainRelation.setModifyId(BaseSecurity.currentPassportId());
             return passportDataDomainRelationRepository.save(passportDataDomainRelation);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -137,6 +152,11 @@ public class PassportDataDomainRelationService implements IPassportDataDomainRel
                 modified.add(this.save(passportDataDomainRelation));
             }
             return modified;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -166,6 +186,11 @@ public class PassportDataDomainRelationService implements IPassportDataDomainRel
                 throw TummyException.getException(TummyExCode.OLD_DATA_NOT_FOUNT);
             }
             passportDataDomainRelationRepository.delete(passportDataDomainRelation);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -202,6 +227,11 @@ public class PassportDataDomainRelationService implements IPassportDataDomainRel
             }
             passportDataDomainRelationRepository.deleteAll(deletes);
             return unExists;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -227,6 +257,11 @@ public class PassportDataDomainRelationService implements IPassportDataDomainRel
         try {
             Example<PassportDataDomainRelation> example = Example.of(passportDataDomainRelation);
             return passportDataDomainRelationRepository.findAll(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -247,6 +282,11 @@ public class PassportDataDomainRelationService implements IPassportDataDomainRel
         try {
             Example<PassportDataDomainRelation> example = Example.of(passportDataDomainRelation);
             return passportDataDomainRelationRepository.count(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -263,6 +303,11 @@ public class PassportDataDomainRelationService implements IPassportDataDomainRel
         }
         try {
             return passportDataDomainRelationRepository.findById(id).get();
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -286,6 +331,11 @@ public class PassportDataDomainRelationService implements IPassportDataDomainRel
             Example<PassportDataDomainRelation> example = Example.of(passportDataDomainRelation);
             
             return passportDataDomainRelationRepository.findAll(example, pageable);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());

@@ -46,7 +46,7 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
             if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
-            return this.chatmsgRepository.search(chatmsg, sortProperty, d);
+            return this.chatmsgRepository.search(chatmsg, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -75,7 +75,7 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
             if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
-            return this.chatmsgRepository.pageableSearch(chatmsg, page, size, sortProperty, d);
+            return this.chatmsgRepository.pageableSearch(chatmsg, page, size, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -100,14 +100,14 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
                 Chatmsg search = new Chatmsg();
                 search.setNickname(chatmsg.getNickname());
                 Collection<Chatmsg> chatmsgs = chatmsgRepository.pageableSearch(search, 1, 1, DefaultConstants.DEFAULT_SORT_PROPERTY,
-                        Direction.DESC);
+                        Direction.DESC, null);
                 if (chatmsgs.isEmpty()) {
                     return 0L;
                 }
                 chatmsg.setUid(chatmsgs.iterator().next().getUid());
                 chatmsg.setNickname(null);
             }
-            return this.chatmsgRepository.count(chatmsg);
+            return this.chatmsgRepository.count(chatmsg, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -132,7 +132,7 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
                 Chatmsg search = new Chatmsg();
                 search.setNickname(chatmsg.getNickname());
                 Collection<Chatmsg> chatmsgs = chatmsgRepository.pageableSearch(search, 1, 1, DefaultConstants.DEFAULT_SORT_PROPERTY,
-                        Direction.DESC);
+                        Direction.DESC, null);
                 if (chatmsgs.isEmpty()) {
                     return 0L;
                 }
@@ -141,7 +141,7 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
             }
             Long startTime = TimeUtils.dateStr2TimeStamp(start);
             Long endTime = TimeUtils.dateStr2TimeStamp(end);
-            return this.chatmsgRepository.countByTime(chatmsg, startTime, endTime);
+            return this.chatmsgRepository.countByTime(chatmsg, startTime, endTime, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

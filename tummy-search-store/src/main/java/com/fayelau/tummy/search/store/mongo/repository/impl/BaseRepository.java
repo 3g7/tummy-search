@@ -1,5 +1,6 @@
 package com.fayelau.tummy.search.store.mongo.repository.impl;
 
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -23,6 +24,14 @@ public class BaseRepository {
         Set<String> notNullProperties = CommonUtils.getNotNullProperties(object);
         for (String property : notNullProperties) {
             Criteria criteria = Criteria.where(property).is(CommonUtils.getFieldValueByFieldName(property, object));
+            query.addCriteria(criteria);
+        }
+        return query;
+    }
+    
+    protected Query buildQueryByMap(Query query, Map<String, Object> domainParams) {
+        for (String property : domainParams.keySet()) {
+            Criteria criteria = Criteria.where(property).is(domainParams.get(property));
             query.addCriteria(criteria);
         }
         return query;

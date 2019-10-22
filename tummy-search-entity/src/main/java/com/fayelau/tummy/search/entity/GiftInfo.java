@@ -1,5 +1,7 @@
 package com.fayelau.tummy.search.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -30,7 +32,7 @@ public class GiftInfo extends BaseJpaEntity {
     protected String gif;
     
     @Column(name = "PRICE", nullable = false)
-    protected Integer price;
+    protected BigDecimal price;
     
     @Column(name = "INTIMACY", nullable = false)
     protected Integer intimacy;
@@ -59,11 +61,11 @@ public class GiftInfo extends BaseJpaEntity {
         this.gif = gif;
     }
 
-    public Integer getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

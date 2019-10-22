@@ -58,6 +58,11 @@ public class GiftInfoService implements IGiftInfoService {
             giftInfo.setEnable(CommonConstants.YES);
             giftInfo.setLocking(CommonConstants.NO);
             return giftInfoRepository.save(giftInfo);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -82,6 +87,11 @@ public class GiftInfoService implements IGiftInfoService {
                 saved.add(this.save(giftInfo));
             }
             return saved;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -108,6 +118,11 @@ public class GiftInfoService implements IGiftInfoService {
             giftInfo.setModified(CommonUtils.currentMillis());
             giftInfo.setModifyId(BaseSecurity.currentPassportId());
             return giftInfoRepository.save(giftInfo);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -137,6 +152,11 @@ public class GiftInfoService implements IGiftInfoService {
                 modified.add(this.save(giftInfo));
             }
             return modified;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -166,6 +186,11 @@ public class GiftInfoService implements IGiftInfoService {
                 throw TummyException.getException(TummyExCode.OLD_DATA_NOT_FOUNT);
             }
             giftInfoRepository.delete(giftInfo);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -202,6 +227,11 @@ public class GiftInfoService implements IGiftInfoService {
             }
             giftInfoRepository.deleteAll(deletes);
             return unExists;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -227,6 +257,11 @@ public class GiftInfoService implements IGiftInfoService {
         try {
             Example<GiftInfo> example = Example.of(giftInfo);
             return giftInfoRepository.findAll(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -247,6 +282,11 @@ public class GiftInfoService implements IGiftInfoService {
         try {
             Example<GiftInfo> example = Example.of(giftInfo);
             return giftInfoRepository.count(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -263,6 +303,11 @@ public class GiftInfoService implements IGiftInfoService {
         }
         try {
             return giftInfoRepository.findById(id).get();
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -284,6 +329,11 @@ public class GiftInfoService implements IGiftInfoService {
         try {
             Example<GiftInfo> example = Example.of(giftInfo);
             return giftInfoRepository.findAll(example, pageable);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());

@@ -58,6 +58,11 @@ public class DataDomainService implements IDataDomainService {
             dataDomain.setEnable(CommonConstants.YES);
             dataDomain.setLocking(CommonConstants.NO);
             return dataDomainRepository.save(dataDomain);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -82,6 +87,11 @@ public class DataDomainService implements IDataDomainService {
                 saved.add(this.save(dataDomain));
             }
             return saved;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -108,6 +118,11 @@ public class DataDomainService implements IDataDomainService {
             dataDomain.setModified(CommonUtils.currentMillis());
             dataDomain.setModifyId(BaseSecurity.currentPassportId());
             return dataDomainRepository.save(dataDomain);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -137,6 +152,11 @@ public class DataDomainService implements IDataDomainService {
                 modified.add(this.save(dataDomain));
             }
             return modified;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -166,6 +186,11 @@ public class DataDomainService implements IDataDomainService {
                 throw TummyException.getException(TummyExCode.OLD_DATA_NOT_FOUNT);
             }
             dataDomainRepository.delete(dataDomain);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -202,6 +227,11 @@ public class DataDomainService implements IDataDomainService {
             }
             dataDomainRepository.deleteAll(deletes);
             return unExists;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -227,6 +257,11 @@ public class DataDomainService implements IDataDomainService {
         try {
             Example<DataDomain> example = Example.of(dataDomain);
             return dataDomainRepository.findAll(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -247,6 +282,11 @@ public class DataDomainService implements IDataDomainService {
         try {
             Example<DataDomain> example = Example.of(dataDomain);
             return dataDomainRepository.count(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -263,6 +303,11 @@ public class DataDomainService implements IDataDomainService {
         }
         try {
             return dataDomainRepository.findById(id).get();
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -286,6 +331,11 @@ public class DataDomainService implements IDataDomainService {
             Example<DataDomain> example = Example.of(dataDomain);
             
             return dataDomainRepository.findAll(example, pageable);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());

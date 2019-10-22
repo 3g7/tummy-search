@@ -58,6 +58,11 @@ public class AnonymousAccessService implements IAnonymousAccessService {
             anonymousAccess.setEnable(CommonConstants.YES);
             anonymousAccess.setLocking(CommonConstants.NO);
             return anonymousAccessRepository.save(anonymousAccess);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -82,6 +87,11 @@ public class AnonymousAccessService implements IAnonymousAccessService {
                 saved.add(this.save(anonymousAccess));
             }
             return saved;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -108,6 +118,11 @@ public class AnonymousAccessService implements IAnonymousAccessService {
             anonymousAccess.setModified(CommonUtils.currentMillis());
             anonymousAccess.setModifyId(BaseSecurity.currentPassportId());
             return anonymousAccessRepository.save(anonymousAccess);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -137,6 +152,11 @@ public class AnonymousAccessService implements IAnonymousAccessService {
                 modified.add(this.save(anonymousAccess));
             }
             return modified;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -166,6 +186,11 @@ public class AnonymousAccessService implements IAnonymousAccessService {
                 throw TummyException.getException(TummyExCode.OLD_DATA_NOT_FOUNT);
             }
             anonymousAccessRepository.delete(anonymousAccess);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -202,6 +227,11 @@ public class AnonymousAccessService implements IAnonymousAccessService {
             }
             anonymousAccessRepository.deleteAll(deletes);
             return unExists;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -227,6 +257,11 @@ public class AnonymousAccessService implements IAnonymousAccessService {
         try {
             Example<AnonymousAccess> example = Example.of(anonymousAccess);
             return anonymousAccessRepository.findAll(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -247,6 +282,11 @@ public class AnonymousAccessService implements IAnonymousAccessService {
         try {
             Example<AnonymousAccess> example = Example.of(anonymousAccess);
             return anonymousAccessRepository.count(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -263,6 +303,11 @@ public class AnonymousAccessService implements IAnonymousAccessService {
         }
         try {
             return anonymousAccessRepository.findById(id).get();
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -286,6 +331,11 @@ public class AnonymousAccessService implements IAnonymousAccessService {
             Example<AnonymousAccess> example = Example.of(anonymousAccess);
             
             return anonymousAccessRepository.findAll(example, pageable);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());

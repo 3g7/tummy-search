@@ -12,6 +12,7 @@ import com.fayelau.tummy.base.core.exception.TummyException;
 import com.fayelau.tummy.search.dubbo.inter.business.IRankDubboService;
 import com.fayelau.tummy.search.inter.service.business.IRankService;
 import com.fayelau.tummy.search.store.mongo.repository.IChatmsgRepository;
+import com.fayelau.tummy.store.entity.Chatmsg;
 import com.fayelau.tummy.store.pojo.Rank;
 
 /**
@@ -47,7 +48,7 @@ public class RankService implements IRankDubboService, IRankService {
             if (limit == null) {
                 throw TummyException.getException(TummyExCode.PARAMETER_NULL);
             }
-            return chatmsgRepository.rankByTime(start, end, limit);
+            return chatmsgRepository.rankByTime(new Chatmsg(), start, end, limit, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

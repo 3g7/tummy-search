@@ -43,7 +43,7 @@ public class RssService implements IRssDubboService, IRssService {
             if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
-            return this.rssRepository.search(rss, sortProperty, d);
+            return this.rssRepository.search(rss, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -72,7 +72,7 @@ public class RssService implements IRssDubboService, IRssService {
             if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
-            return this.rssRepository.pageableSearch(rss, page, size, sortProperty, d);
+            return this.rssRepository.pageableSearch(rss, page, size, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -93,7 +93,7 @@ public class RssService implements IRssDubboService, IRssService {
             logger.debug("params rss:" + rss);
         }
         try {
-            return this.rssRepository.count(rss);
+            return this.rssRepository.count(rss, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

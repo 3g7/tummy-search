@@ -1,6 +1,7 @@
 package com.fayelau.tummy.search.store.mongo.repository;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.data.domain.Sort.Direction;
 
@@ -23,7 +24,8 @@ public interface IDgbRepository {
      * @return
      * @throws TummyException
      */
-    public Collection<Dgb> search(Dgb dgb, String sortProperty, Direction direction) throws TummyException;
+    public Collection<Dgb> search(Dgb dgb, String sortProperty, Direction direction, Map<String, Object> domainParams)
+            throws TummyException;
 
     /**
      * 分页查询实体集合
@@ -34,15 +36,16 @@ public interface IDgbRepository {
      * @return
      * @throws TummyException
      */
-    public Collection<Dgb> pageableSearch(Dgb dgb, Integer page, Integer size, String sortProperty, Direction direction)
-            throws TummyException;
-    
+    public Collection<Dgb> pageableSearch(Dgb dgb, Integer page, Integer size, String sortProperty, Direction direction,
+            Map<String, Object> domainParams) throws TummyException;
+
     /**
      * 查询数据条数根据条件
+     * 
      * @param dgb
      * @return
      * @throws TummyException
      */
-    public Long count(Dgb dgb) throws TummyException;
+    public Long count(Dgb dgb, Map<String, Object> domainParams) throws TummyException;
 
 }
