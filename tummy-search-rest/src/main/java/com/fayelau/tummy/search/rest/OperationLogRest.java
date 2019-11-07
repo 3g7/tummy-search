@@ -53,6 +53,11 @@ public class OperationLogRest {
                 operationLog = operationLogService.save(operationLog);
             }
             responseRange.setOneData(operationLog);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -74,6 +79,11 @@ public class OperationLogRest {
                 operationLogs = operationLogService.batchSave(operationLogs);
             }
             responseRange.setData(operationLogs);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -95,6 +105,11 @@ public class OperationLogRest {
                 operationLog = operationLogService.modify(operationLog);
             }
             responseRange.setOneData(operationLog);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -117,6 +132,11 @@ public class OperationLogRest {
             }
             operationLogs = operationLogService.batchModify(operationLogs);
             responseRange.setData(operationLogs);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -137,6 +157,11 @@ public class OperationLogRest {
             if (operationLog != null) {
                 operationLogService.remove(operationLog);
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -161,6 +186,11 @@ public class OperationLogRest {
             if (!operationLogs.isEmpty()) {
                 responseRange.setData(operationLogs);
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -183,6 +213,11 @@ public class OperationLogRest {
                     responseRange.setOneData(g);
                 }
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {
@@ -202,6 +237,11 @@ public class OperationLogRest {
         ResponseRange<Long> responseRange = new ResponseRange<>();
         try {
             responseRange.setOneData(operationLogService.count(operationLog));
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {
@@ -234,6 +274,11 @@ public class OperationLogRest {
                 responseRange.openPage(pageData.getNumber(), size);
                 responseRange.setTotal(pageData.getTotalElements());
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {

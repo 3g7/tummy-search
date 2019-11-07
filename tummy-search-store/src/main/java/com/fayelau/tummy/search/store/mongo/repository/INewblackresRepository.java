@@ -1,6 +1,7 @@
 package com.fayelau.tummy.search.store.mongo.repository;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.data.domain.Sort.Direction;
 
@@ -23,7 +24,7 @@ public interface INewblackresRepository {
      * @return
      * @throws TummyException
      */
-    public Collection<Newblackres> search(Newblackres newblackres, String sortProperty, Direction direction)
+    public Collection<Newblackres> search(Newblackres newblackres, String sortProperty, Direction direction, Map<String, Object> domainParams)
             throws TummyException;
 
     /**
@@ -36,7 +37,7 @@ public interface INewblackresRepository {
      * @throws TummyException
      */
     public Collection<Newblackres> pageableSearch(Newblackres newblackres, Integer page, Integer size,
-            String sortProperty, Direction direction) throws TummyException;
+            String sortProperty, Direction direction, Map<String, Object> domainParams) throws TummyException;
     
     /**
      * 查询数据条数根据条件
@@ -44,5 +45,5 @@ public interface INewblackresRepository {
      * @return
      * @throws TummyException
      */
-    public Long count(Newblackres newblackres) throws TummyException;
+    public Long count(Newblackres newblackres, Map<String, Object> domainParams) throws TummyException;
 }

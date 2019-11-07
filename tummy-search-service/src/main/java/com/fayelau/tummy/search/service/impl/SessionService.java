@@ -58,6 +58,11 @@ public class SessionService implements ISessionService {
             session.setEnable(CommonConstants.YES);
             session.setLocking(CommonConstants.NO);
             return sessionRepository.save(session);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -82,6 +87,11 @@ public class SessionService implements ISessionService {
                 saved.add(this.save(session));
             }
             return saved;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -108,6 +118,11 @@ public class SessionService implements ISessionService {
             session.setModified(CommonUtils.currentMillis());
             session.setModifyId(BaseSecurity.currentPassportId());
             return sessionRepository.save(session);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -137,6 +152,11 @@ public class SessionService implements ISessionService {
                 modified.add(this.save(session));
             }
             return modified;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -166,6 +186,11 @@ public class SessionService implements ISessionService {
                 throw TummyException.getException(TummyExCode.OLD_DATA_NOT_FOUNT);
             }
             sessionRepository.delete(session);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -202,6 +227,11 @@ public class SessionService implements ISessionService {
             }
             sessionRepository.deleteAll(deletes);
             return unExists;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -227,6 +257,11 @@ public class SessionService implements ISessionService {
         try {
             Example<Session> example = Example.of(session);
             return sessionRepository.findAll(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -247,6 +282,11 @@ public class SessionService implements ISessionService {
         try {
             Example<Session> example = Example.of(session);
             return sessionRepository.count(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -263,6 +303,11 @@ public class SessionService implements ISessionService {
         }
         try {
             return sessionRepository.findById(id).get();
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -284,6 +329,11 @@ public class SessionService implements ISessionService {
         try {
             Example<Session> example = Example.of(session);
             return sessionRepository.findAll(example, pageable);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());

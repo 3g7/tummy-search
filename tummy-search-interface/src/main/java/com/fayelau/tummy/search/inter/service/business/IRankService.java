@@ -1,6 +1,7 @@
 package com.fayelau.tummy.search.inter.service.business;
 
 import java.util.Collection;
+import java.util.Map;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
 import com.fayelau.tummy.store.pojo.Rank;
@@ -23,6 +24,6 @@ public interface IRankService {
      * @return
      * @throws TummyException
      */
-    public Collection<Rank> rankByTime(Long start, Long end, Long limit) throws TummyException;
+    public Collection<Rank> rankByTime(Long start, Long end, Long limit, Map<String, Object> domainParams) throws TummyException;
 
 }

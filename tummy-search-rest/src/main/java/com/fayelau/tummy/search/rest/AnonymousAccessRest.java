@@ -52,6 +52,11 @@ public class AnonymousAccessRest {
                 anonymousAccess = anonymousAccessService.save(anonymousAccess);
             }
             responseRange.setOneData(anonymousAccess);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -73,6 +78,11 @@ public class AnonymousAccessRest {
                 anonymousAccesss = anonymousAccessService.batchSave(anonymousAccesss);
             }
             responseRange.setData(anonymousAccesss);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -94,6 +104,11 @@ public class AnonymousAccessRest {
                 anonymousAccess = anonymousAccessService.modify(anonymousAccess);
             }
             responseRange.setOneData(anonymousAccess);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -116,6 +131,11 @@ public class AnonymousAccessRest {
             }
             anonymousAccesss = anonymousAccessService.batchModify(anonymousAccesss);
             responseRange.setData(anonymousAccesss);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -136,6 +156,11 @@ public class AnonymousAccessRest {
             if (anonymousAccess != null) {
                 anonymousAccessService.remove(anonymousAccess);
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -160,6 +185,11 @@ public class AnonymousAccessRest {
             if (!anonymousAccesss.isEmpty()) {
                 responseRange.setData(anonymousAccesss);
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -182,6 +212,11 @@ public class AnonymousAccessRest {
                     responseRange.setOneData(g);
                 }
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {
@@ -201,6 +236,11 @@ public class AnonymousAccessRest {
         ResponseRange<Long> responseRange = new ResponseRange<>();
         try {
             responseRange.setOneData(anonymousAccessService.count(anonymousAccess));
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {
@@ -233,6 +273,11 @@ public class AnonymousAccessRest {
                 responseRange.openPage(pageData.getNumber(), size);
                 responseRange.setTotal(pageData.getTotalElements());
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {

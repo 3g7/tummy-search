@@ -39,5 +39,13 @@ public interface IAuthenticateService {
      * @throws TummyException
      */
     public Session verifyToken(String token) throws TummyException;
+    
+    /**
+     * 获取通行证信息
+     * @param token
+     * @return
+     * @throws TummyException
+     */
+    public Passport getPassport(String token) throws TummyException;
 
 }

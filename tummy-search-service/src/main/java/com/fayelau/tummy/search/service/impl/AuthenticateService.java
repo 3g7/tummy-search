@@ -51,6 +51,8 @@ public class AuthenticateService implements IAuthenticateService {
     @Value("${tummy.search.security.expiredInterval}")
     private Long expiredInterval;
 
+    private static Long lastUpdateTimestamp = 0L;
+    
     @Override
     @Transactional(readOnly = false)
     public Session authenticate(Passport passport) throws TummyException {
@@ -88,6 +90,11 @@ public class AuthenticateService implements IAuthenticateService {
             session.setLocking(CommonConstants.NO);
             sessionRepository.save(session);
             return session;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -119,6 +126,11 @@ public class AuthenticateService implements IAuthenticateService {
                 return requestUriSuccess && requestMethodSuccess;
             }
             return false;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -147,11 +159,50 @@ public class AuthenticateService implements IAuthenticateService {
             }
             Session session = sessionOptional.get();
             if (CommonUtils.currentMillis() > session.getExpiredTime()) {
-                sessionRepository.delete(session);
+                // sessionRepository.delete(session); 会发生异常回滚 这句话无效
                 throw TummyException.getException(TummyExCode.TOKEN_EXPIRE);
             }
-            session.setExpiredTime(CommonUtils.currentMillis() + expiredInterval);
-            return sessionRepository.save(session);
+            if (CommonUtils.currentMillis() - lastUpdateTimestamp > expiredInterval / 2) {
+                session.setExpiredTime(CommonUtils.currentMillis() + expiredInterval);
+                session = sessionRepository.save(session);
+                lastUpdateTimestamp = CommonUtils.currentMillis();
+            }
+            return session;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
+        } catch (Exception e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage());
+            }
+            throw TummyException.getException(e, e.getMessage());
+        }
+    }
+
+    @Override
+    public Passport getPassport(String token) throws TummyException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Currently executing function AuthenticateService.verifyToken");
+            logger.debug("The parameter is token:" + token);
+        }
+        try {
+            Session session = this.verifyToken(token);
+            if (CommonUtils.currentMillis() > session.getExpiredTime()) {
+                // sessionRepository.delete(session); 会发生异常回滚 这句话无效
+                throw TummyException.getException(TummyExCode.TOKEN_EXPIRE);
+            }
+            Optional<Passport> passportOptional = passportRepository.findById(session.getPassportId());
+            if (!passportOptional.isPresent()) {
+                throw TummyException.getException(TummyExCode.TOKEN_EXPIRE);
+            }
+            return passportOptional.get();
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());

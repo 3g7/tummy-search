@@ -53,6 +53,11 @@ public class PassportDataDomainRelationRest {
                 passportDataDomainRelation = passportDataDomainRelationService.save(passportDataDomainRelation);
             }
             responseRange.setOneData(passportDataDomainRelation);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -74,6 +79,11 @@ public class PassportDataDomainRelationRest {
                 passportDataDomainRelations = passportDataDomainRelationService.batchSave(passportDataDomainRelations);
             }
             responseRange.setData(passportDataDomainRelations);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -95,6 +105,11 @@ public class PassportDataDomainRelationRest {
                 passportDataDomainRelation = passportDataDomainRelationService.modify(passportDataDomainRelation);
             }
             responseRange.setOneData(passportDataDomainRelation);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -117,6 +132,11 @@ public class PassportDataDomainRelationRest {
             }
             passportDataDomainRelations = passportDataDomainRelationService.batchModify(passportDataDomainRelations);
             responseRange.setData(passportDataDomainRelations);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -137,6 +157,11 @@ public class PassportDataDomainRelationRest {
             if (passportDataDomainRelation != null) {
                 passportDataDomainRelationService.remove(passportDataDomainRelation);
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -161,6 +186,11 @@ public class PassportDataDomainRelationRest {
             if (!passportDataDomainRelations.isEmpty()) {
                 responseRange.setData(passportDataDomainRelations);
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -183,6 +213,11 @@ public class PassportDataDomainRelationRest {
                     responseRange.setOneData(g);
                 }
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {
@@ -202,6 +237,11 @@ public class PassportDataDomainRelationRest {
         ResponseRange<Long> responseRange = new ResponseRange<>();
         try {
             responseRange.setOneData(passportDataDomainRelationService.count(passportDataDomainRelation));
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {
@@ -234,6 +274,11 @@ public class PassportDataDomainRelationRest {
                 responseRange.openPage(pageData.getNumber(), size);
                 responseRange.setTotal(pageData.getTotalElements());
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {

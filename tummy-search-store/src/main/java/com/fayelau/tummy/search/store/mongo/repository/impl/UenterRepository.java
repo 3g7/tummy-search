@@ -1,6 +1,7 @@
 package com.fayelau.tummy.search.store.mongo.repository.impl;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -27,19 +28,20 @@ import com.fayelau.tummy.store.entity.Uenter;
  */
 @Repository
 public class UenterRepository extends BaseRepository implements IUenterRepository {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(UenterRepository.class);
 
     @Autowired
     private MongoTemplate mongoTemplate;
-    
+
     private static final String COLLECTION_NAME = "uenter";
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Collection<Uenter> search(Uenter uenter, String sortProperty, Direction direction) throws TummyException {
+    public Collection<Uenter> search(Uenter uenter, String sortProperty, Direction direction,
+            Map<String, Object> domainParams) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run UenterRepository.search");
             logger.debug("params uenter:" + uenter);
@@ -49,6 +51,9 @@ public class UenterRepository extends BaseRepository implements IUenterRepositor
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
+            if (domainParams != null && !domainParams.isEmpty()) {
+                query = buildQueryByMap(query, domainParams);
+            }
             return mongoTemplate.find(query, Uenter.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
@@ -57,12 +62,13 @@ public class UenterRepository extends BaseRepository implements IUenterRepositor
             throw TummyException.getException(e, e.getMessage());
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public Collection<Uenter> pageableSearch(Uenter uenter, Integer page, Integer size, String sortProperty, Direction direction) throws TummyException {
+    public Collection<Uenter> pageableSearch(Uenter uenter, Integer page, Integer size, String sortProperty,
+            Direction direction, Map<String, Object> domainParams) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run UenterRepository.pageableSearch");
             logger.debug("params uenter:" + uenter);
@@ -77,6 +83,9 @@ public class UenterRepository extends BaseRepository implements IUenterRepositor
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
+            if (domainParams != null && !domainParams.isEmpty()) {
+                query = buildQueryByMap(query, domainParams);
+            }
             return mongoTemplate.find(query, Uenter.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
@@ -85,18 +94,21 @@ public class UenterRepository extends BaseRepository implements IUenterRepositor
             throw TummyException.getException(e, e.getMessage());
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public Long count(Uenter uenter) throws TummyException {
+    public Long count(Uenter uenter, Map<String, Object> domainParams) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run UenterRepository.count");
             logger.debug("params uenter:" + uenter);
         }
         try {
             Query query = buildQuery(uenter);
+            if (domainParams != null && !domainParams.isEmpty()) {
+                query = buildQueryByMap(query, domainParams);
+            }
             return mongoTemplate.count(query, Rss.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {

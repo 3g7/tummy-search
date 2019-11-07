@@ -53,6 +53,11 @@ public class SessionRest {
                 session = sessionService.save(session);
             }
             responseRange.setOneData(session);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -74,6 +79,11 @@ public class SessionRest {
                 sessions = sessionService.batchSave(sessions);
             }
             responseRange.setData(sessions);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -95,6 +105,11 @@ public class SessionRest {
                 session = sessionService.modify(session);
             }
             responseRange.setOneData(session);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -117,6 +132,11 @@ public class SessionRest {
             }
             sessions = sessionService.batchModify(sessions);
             responseRange.setData(sessions);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -137,6 +157,11 @@ public class SessionRest {
             if (session != null) {
                 sessionService.remove(session);
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -161,6 +186,11 @@ public class SessionRest {
             if (!sessions.isEmpty()) {
                 responseRange.setData(sessions);
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -183,6 +213,11 @@ public class SessionRest {
                     responseRange.setOneData(g);
                 }
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {
@@ -202,6 +237,11 @@ public class SessionRest {
         ResponseRange<Long> responseRange = new ResponseRange<>();
         try {
             responseRange.setOneData(sessionService.count(session));
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {
@@ -234,6 +274,11 @@ public class SessionRest {
                 responseRange.openPage(pageData.getNumber(), size);
                 responseRange.setTotal(pageData.getTotalElements());
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {

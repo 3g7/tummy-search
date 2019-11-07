@@ -32,6 +32,12 @@ public class Passport extends BaseJpaEntity {
     
     @Column(name = "AVATAR", nullable = true, length = 255)
     protected String avatar;
+    
+    @Column(name = "ROOM_ID", nullable = false, length = 16)
+    protected String roomId;
+    
+    @Column(name = "DEFAULT_SEARCH", nullable = false, length = 32)
+    protected String defaultSearch;
 
     public String getNickname() {
         return nickname;
@@ -65,6 +71,22 @@ public class Passport extends BaseJpaEntity {
         this.avatar = avatar;
     }
     
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
+    
+    public String getDefaultSearch() {
+        return defaultSearch;
+    }
+
+    public void setDefaultSearch(String defaultSearch) {
+        this.defaultSearch = defaultSearch;
+    }
+
     @Override
     public boolean equals(Object obj) {
       return EqualsBuilder.reflectionEquals(this, obj);

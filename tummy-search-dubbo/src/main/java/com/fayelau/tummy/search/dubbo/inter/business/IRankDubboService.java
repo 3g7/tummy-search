@@ -1,6 +1,7 @@
 package com.fayelau.tummy.search.dubbo.inter.business;
 
 import java.util.Collection;
+import java.util.Map;
 
 import com.fayelau.tummy.store.pojo.Rank;
 
@@ -22,6 +23,6 @@ public interface IRankDubboService {
      * @return
      * @throws Exception
      */
-    public Collection<Rank> rankByTime(Long start, Long end, Long limit) throws Exception;
+    public Collection<Rank> rankByTime(Long start, Long end, Long limit, Map<String, Object> domainParams) throws Exception;
 
 }

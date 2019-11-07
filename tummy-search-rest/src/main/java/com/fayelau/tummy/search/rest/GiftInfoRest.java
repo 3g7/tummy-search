@@ -53,6 +53,11 @@ public class GiftInfoRest {
                 giftInfo = giftInfoService.save(giftInfo);
             }
             responseRange.setOneData(giftInfo);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -74,6 +79,11 @@ public class GiftInfoRest {
                 giftInfos = giftInfoService.batchSave(giftInfos);
             }
             responseRange.setData(giftInfos);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -95,6 +105,11 @@ public class GiftInfoRest {
                 giftInfo = giftInfoService.modify(giftInfo);
             }
             responseRange.setOneData(giftInfo);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -117,6 +132,11 @@ public class GiftInfoRest {
             }
             giftInfos = giftInfoService.batchModify(giftInfos);
             responseRange.setData(giftInfos);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -137,6 +157,11 @@ public class GiftInfoRest {
             if (giftInfo != null) {
                 giftInfoService.remove(giftInfo);
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -161,6 +186,11 @@ public class GiftInfoRest {
             if (!giftInfos.isEmpty()) {
                 responseRange.setData(giftInfos);
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -183,6 +213,11 @@ public class GiftInfoRest {
                     responseRange.setOneData(g);
                 }
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {
@@ -202,6 +237,11 @@ public class GiftInfoRest {
         ResponseRange<Long> responseRange = new ResponseRange<>();
         try {
             responseRange.setOneData(giftInfoService.count(giftInfo));
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {
@@ -234,6 +274,11 @@ public class GiftInfoRest {
                 responseRange.openPage(pageData.getNumber(), size);
                 responseRange.setTotal(pageData.getTotalElements());
             }
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
         } catch (Exception e) {
             e.printStackTrace();
             if (logger.isErrorEnabled()) {

@@ -1,6 +1,7 @@
 package com.fayelau.tummy.search.store.mongo.repository.impl;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -30,12 +31,12 @@ public class NewblackresRepository extends BaseRepository implements INewblackre
 
     @Autowired
     private MongoTemplate mongoTemplate;
-    
+
     private static final String COLLECTION_NAME = "newblackres";
 
     @Override
-    public Collection<Newblackres> search(Newblackres newblackres, String sortProperty, Direction direction)
-            throws TummyException {
+    public Collection<Newblackres> search(Newblackres newblackres, String sortProperty, Direction direction,
+            Map<String, Object> domainParams) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run NewblackresRepository.search");
             logger.debug("params newblackres:" + newblackres);
@@ -44,6 +45,9 @@ public class NewblackresRepository extends BaseRepository implements INewblackre
             Query query = buildQuery(newblackres);
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
+            }
+            if (domainParams != null && !domainParams.isEmpty()) {
+                query = buildQueryByMap(query, domainParams);
             }
             return mongoTemplate.find(query, Newblackres.class, COLLECTION_NAME);
         } catch (Exception e) {
@@ -59,7 +63,7 @@ public class NewblackresRepository extends BaseRepository implements INewblackre
      */
     @Override
     public Collection<Newblackres> pageableSearch(Newblackres newblackres, Integer page, Integer size,
-            String sortProperty, Direction direction) throws TummyException {
+            String sortProperty, Direction direction, Map<String, Object> domainParams) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run NewblackresRepository.pageableSearch");
             logger.debug("params newblackres:" + newblackres);
@@ -74,6 +78,9 @@ public class NewblackresRepository extends BaseRepository implements INewblackre
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
+            if (domainParams != null && !domainParams.isEmpty()) {
+                query = buildQueryByMap(query, domainParams);
+            }
             return mongoTemplate.find(query, Newblackres.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
@@ -87,13 +94,16 @@ public class NewblackresRepository extends BaseRepository implements INewblackre
      * {@inheritDoc}
      */
     @Override
-    public Long count(Newblackres newblackres) throws TummyException {
+    public Long count(Newblackres newblackres, Map<String, Object> domainParams) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run NewblackresRepository.count");
             logger.debug("params newblackres:" + newblackres);
         }
         try {
             Query query = buildQuery(newblackres);
+            if (domainParams != null && !domainParams.isEmpty()) {
+                query = buildQueryByMap(query, domainParams);
+            }
             return mongoTemplate.count(query, Newblackres.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {

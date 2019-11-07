@@ -11,37 +11,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
 import com.fayelau.tummy.base.core.utils.ResponseRange;
-import com.fayelau.tummy.search.inter.service.business.IRankService;
-import com.fayelau.tummy.store.pojo.Rank;
+import com.fayelau.tummy.search.entity.GiftInfo;
+import com.fayelau.tummy.search.inter.service.business.IGiftInfoFeatureService;
 
-/**
- * 排行请求接口
- * 
- * @author 3g7 2019-09-30 10:04:38
- * @version 0.0.1
- *
- */
 @RestController
-@RequestMapping("rank")
-public class RankRest {
+@RequestMapping("gift_info/feature")
+public class GiftInfoFeatureRest {
     
-    private static final Logger logger = LoggerFactory.getLogger(RankRest.class);
+    private static final Logger logger = LoggerFactory.getLogger(GiftInfoFeatureRest.class);
 
     @Autowired
-    private IRankService rankService;
+    private IGiftInfoFeatureService giftInfoFeatureService;
     
     @GetMapping
-    public ResponseRange<Rank> rankByTime(Long start, Long end, Long limit) {
+    public ResponseRange<GiftInfo> getGiftInfoByDouyu(String roomId) {
         if (logger.isDebugEnabled()) {
-            logger.debug("run RankRest.rankByTime");
-            logger.debug("params start:" + start);
-            logger.debug("params end:" + end);
-            logger.debug("params limit:" + limit);
+            logger.debug("run GiftInfoFeatureRest.getGiftInfoByDouyu");
         }
-        ResponseRange<Rank> responseRange = new ResponseRange<>();
+        ResponseRange<GiftInfo> responseRange = new ResponseRange<>();
         try {
-            Collection<Rank> ranks = this.rankService.rankByTime(start, end, limit);
-            responseRange.setData(ranks);
+            Collection<GiftInfo> giftInfos = this.giftInfoFeatureService.getGiftInfoForDouyu(roomId);
+            responseRange.setData(giftInfos);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

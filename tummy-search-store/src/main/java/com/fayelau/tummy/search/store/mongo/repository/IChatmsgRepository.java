@@ -1,6 +1,7 @@
 package com.fayelau.tummy.search.store.mongo.repository;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.data.domain.Sort.Direction;
 
@@ -24,7 +25,7 @@ public interface IChatmsgRepository {
      * @return
      * @throws TummyException
      */
-    public Collection<Chatmsg> search(Chatmsg chatmsg, String sortProperty, Direction direction) throws TummyException;
+    public Collection<Chatmsg> search(Chatmsg chatmsg, String sortProperty, Direction direction, Map<String, Object> domainParams) throws TummyException;
 
     /**
      * 分页查询实体集合
@@ -36,7 +37,7 @@ public interface IChatmsgRepository {
      * @throws TummyException
      */
     public Collection<Chatmsg> pageableSearch(Chatmsg chatmsg, Integer page, Integer size, String sortProperty,
-            Direction direction) throws TummyException;
+            Direction direction, Map<String, Object> domainParams) throws TummyException;
     
     /**
      * 查询数据条数根据条件
@@ -44,7 +45,7 @@ public interface IChatmsgRepository {
      * @return
      * @throws TummyException
      */
-    public Long count(Chatmsg chatmsg) throws TummyException;
+    public Long count(Chatmsg chatmsg, Map<String, Object> domainParams) throws TummyException;
     
     /**
      * 查询数据条数根据条件
@@ -52,7 +53,7 @@ public interface IChatmsgRepository {
      * @return
      * @throws TummyException
      */
-    public Long countByTime(Chatmsg chatmsg, Long start, Long end) throws TummyException;
+    public Long countByTime(Chatmsg chatmsg, Long start, Long end, Map<String, Object> domainParams) throws TummyException;
 
     /**
      * 根据时间区间查询排行
@@ -62,5 +63,5 @@ public interface IChatmsgRepository {
      * @return
      * @throws TummyException
      */
-    public Collection<Rank> rankByTime(Long start, Long end, Long limit) throws TummyException;
+    public Collection<Rank> rankByTime(Long start, Long end, Long limit, Map<String, Object> domainParams) throws TummyException;
 }

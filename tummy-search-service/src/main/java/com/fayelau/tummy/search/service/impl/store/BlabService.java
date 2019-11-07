@@ -45,7 +45,7 @@ public class BlabService implements IBlabDubboService, IBlabService {
             if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
-            return this.blabRepository.search(blab, sortProperty, d);
+            return this.blabRepository.search(blab, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -74,7 +74,7 @@ public class BlabService implements IBlabDubboService, IBlabService {
             if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
-            return this.blabRepository.pageableSearch(blab, page, size, sortProperty, d);
+            return this.blabRepository.pageableSearch(blab, page, size, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -99,14 +99,14 @@ public class BlabService implements IBlabDubboService, IBlabService {
                 Blab search = new Blab();
                 search.setNickname(blab.getNickname());
                 Collection<Blab> blabs = blabRepository.pageableSearch(search, 1, 1, DefaultConstants.DEFAULT_SORT_PROPERTY,
-                        Direction.DESC);
+                        Direction.DESC, null);
                 if (blabs.isEmpty()) {
                     return 0L;
                 }
                 blab.setUid(blabs.iterator().next().getUid());
                 blab.setNickname(null);
             }
-            return this.blabRepository.count(blab);
+            return this.blabRepository.count(blab, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

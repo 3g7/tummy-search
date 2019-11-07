@@ -45,7 +45,7 @@ public class DgbService implements IDgbDubboService, IDgbService {
             if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
-            return this.dgbRepository.search(dgb, sortProperty, d);
+            return this.dgbRepository.search(dgb, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -74,7 +74,7 @@ public class DgbService implements IDgbDubboService, IDgbService {
             if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
-            return this.dgbRepository.pageableSearch(dgb, page, size, sortProperty, d);
+            return this.dgbRepository.pageableSearch(dgb, page, size, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -99,14 +99,14 @@ public class DgbService implements IDgbDubboService, IDgbService {
                 Dgb search = new Dgb();
                 search.setNickname(dgb.getNickname());
                 Collection<Dgb> dgbs = dgbRepository.pageableSearch(search, 1, 1, DefaultConstants.DEFAULT_SORT_PROPERTY,
-                        Direction.DESC);
+                        Direction.DESC, null);
                 if (dgbs.isEmpty()) {
                     return 0L;
                 }
                 dgb.setUid(dgbs.iterator().next().getUid());
                 dgb.setNickname(null);
             }
-            return this.dgbRepository.count(dgb);
+            return this.dgbRepository.count(dgb, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

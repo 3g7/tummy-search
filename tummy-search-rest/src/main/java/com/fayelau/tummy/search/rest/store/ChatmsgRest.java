@@ -16,8 +16,10 @@ import com.fayelau.tummy.base.core.utils.ResponseRange;
 import com.fayelau.tummy.search.core.constants.CommonConstants;
 import com.fayelau.tummy.search.core.constants.DefaultConstants;
 import com.fayelau.tummy.search.core.utils.TimeUtils;
+import com.fayelau.tummy.search.inter.service.business.IRankService;
 import com.fayelau.tummy.search.inter.service.store.IChatmsgService;
 import com.fayelau.tummy.store.entity.Chatmsg;
+import com.fayelau.tummy.store.pojo.Rank;
 
 /**
  * 弹幕消息请求
@@ -34,6 +36,9 @@ public class ChatmsgRest {
 
     @Autowired
     private IChatmsgService chatmsgService;
+    
+    @Autowired
+    private IRankService rankService;
 
     @GetMapping
     public ResponseRange<Chatmsg> search(Chatmsg chatmsg) {
@@ -96,7 +101,7 @@ public class ChatmsgRest {
     @GetMapping("count")
     public ResponseRange<Long> count(Chatmsg chatmsg, String start, String end) {
         if (logger.isDebugEnabled()) {
-            logger.debug("run BlabRest.count");
+            logger.debug("run ChatmsgRest.count");
             logger.debug("params chatmsg:" + chatmsg);
         }
         ResponseRange<Long> responseRange = new ResponseRange<>();
@@ -114,6 +119,32 @@ public class ChatmsgRest {
                 count = this.chatmsgService.count(chatmsg);
             }
             responseRange.setOneData(count);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
+        } catch (Exception e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            responseRange.setException(e);
+        }
+        return responseRange;
+    }
+    
+    @GetMapping("rank")
+    public ResponseRange<Rank> rankByTime(Long start, Long end, Long limit) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("run ChatmsgRest.rankByTime");
+            logger.debug("params start:" + start);
+            logger.debug("params end:" + end);
+            logger.debug("params limit:" + limit);
+        }
+        ResponseRange<Rank> responseRange = new ResponseRange<>();
+        try {
+            Collection<Rank> ranks = this.rankService.rankByTime(start, end, limit, null);
+            responseRange.setData(ranks);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

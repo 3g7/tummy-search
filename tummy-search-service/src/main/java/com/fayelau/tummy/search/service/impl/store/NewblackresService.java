@@ -44,7 +44,7 @@ public class NewblackresService implements INewblackresDubboService, INewblackre
             if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
-            return this.newblackresRepository.search(newblackres, sortProperty, d);
+            return this.newblackresRepository.search(newblackres, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -73,7 +73,7 @@ public class NewblackresService implements INewblackresDubboService, INewblackre
             if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
-            return this.newblackresRepository.pageableSearch(newblackres, page, size, sortProperty, d);
+            return this.newblackresRepository.pageableSearch(newblackres, page, size, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -94,7 +94,7 @@ public class NewblackresService implements INewblackresDubboService, INewblackre
             logger.debug("params newblackres:" + newblackres);
         }
         try {
-            return this.newblackresRepository.count(newblackres);
+            return this.newblackresRepository.count(newblackres, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

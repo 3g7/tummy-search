@@ -59,6 +59,11 @@ public class PassportService implements IPassportService {
             passport.setLocking(CommonConstants.NO);
             passport.setPassword(BaseSecurity.MD5(passport.getPassword(), passport.getUsername()));
             return passportRepository.save(passport);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -83,6 +88,11 @@ public class PassportService implements IPassportService {
                 saved.add(this.save(passport));
             }
             return saved;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -109,6 +119,11 @@ public class PassportService implements IPassportService {
             passport.setModified(CommonUtils.currentMillis());
             passport.setModifyId(BaseSecurity.currentPassportId());
             return passportRepository.save(passport);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -138,6 +153,11 @@ public class PassportService implements IPassportService {
                 modified.add(this.save(passport));
             }
             return modified;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -167,6 +187,11 @@ public class PassportService implements IPassportService {
                 throw TummyException.getException(TummyExCode.OLD_DATA_NOT_FOUNT);
             }
             passportRepository.delete(passport);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -203,6 +228,11 @@ public class PassportService implements IPassportService {
             }
             passportRepository.deleteAll(deletes);
             return unExists;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -228,6 +258,11 @@ public class PassportService implements IPassportService {
         try {
             Example<Passport> example = Example.of(passport);
             return passportRepository.findAll(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -248,6 +283,11 @@ public class PassportService implements IPassportService {
         try {
             Example<Passport> example = Example.of(passport);
             return passportRepository.count(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -264,6 +304,11 @@ public class PassportService implements IPassportService {
         }
         try {
             return passportRepository.findById(id).get();
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -285,6 +330,11 @@ public class PassportService implements IPassportService {
         try {
             Example<Passport> example = Example.of(passport);
             return passportRepository.findAll(example, pageable);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());

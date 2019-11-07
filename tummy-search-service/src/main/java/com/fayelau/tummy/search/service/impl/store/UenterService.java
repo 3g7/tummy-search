@@ -43,7 +43,7 @@ public class UenterService implements IUenterDubboService, IUenterService {
             if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
-            return this.uenterRepository.search(uenter, sortProperty, d);
+            return this.uenterRepository.search(uenter, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -72,7 +72,7 @@ public class UenterService implements IUenterDubboService, IUenterService {
             if (direction.equals(CommonConstants.DIRECTION_ASC)) {
                 d = Direction.ASC;
             }
-            return this.uenterRepository.pageableSearch(uenter, page, size, sortProperty, d);
+            return this.uenterRepository.pageableSearch(uenter, page, size, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -93,7 +93,7 @@ public class UenterService implements IUenterDubboService, IUenterService {
             logger.debug("params uenter:" + uenter);
         }
         try {
-            return this.uenterRepository.count(uenter);
+            return this.uenterRepository.count(uenter, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

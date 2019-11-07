@@ -58,6 +58,11 @@ public class OperationLogService implements IOperationLogService {
             operationLog.setEnable(CommonConstants.YES);
             operationLog.setLocking(CommonConstants.NO);
             return operationLogRepository.save(operationLog);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -82,6 +87,11 @@ public class OperationLogService implements IOperationLogService {
                 saved.add(this.save(operationLog));
             }
             return saved;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -108,6 +118,11 @@ public class OperationLogService implements IOperationLogService {
             operationLog.setModified(CommonUtils.currentMillis());
             operationLog.setModifyId(BaseSecurity.currentPassportId());
             return operationLogRepository.save(operationLog);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -137,6 +152,11 @@ public class OperationLogService implements IOperationLogService {
                 modified.add(this.save(operationLog));
             }
             return modified;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -166,6 +186,11 @@ public class OperationLogService implements IOperationLogService {
                 throw TummyException.getException(TummyExCode.OLD_DATA_NOT_FOUNT);
             }
             operationLogRepository.delete(operationLog);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -202,6 +227,11 @@ public class OperationLogService implements IOperationLogService {
             }
             operationLogRepository.deleteAll(deletes);
             return unExists;
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (ObjectOptimisticLockingFailureException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -227,6 +257,11 @@ public class OperationLogService implements IOperationLogService {
         try {
             Example<OperationLog> example = Example.of(operationLog);
             return operationLogRepository.findAll(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -247,6 +282,11 @@ public class OperationLogService implements IOperationLogService {
         try {
             Example<OperationLog> example = Example.of(operationLog);
             return operationLogRepository.count(example);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -263,6 +303,11 @@ public class OperationLogService implements IOperationLogService {
         }
         try {
             return operationLogRepository.findById(id).get();
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
@@ -286,6 +331,11 @@ public class OperationLogService implements IOperationLogService {
             Example<OperationLog> example = Example.of(operationLog);
             
             return operationLogRepository.findAll(example, pageable);
+        } catch (TummyException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            throw e;
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage());
