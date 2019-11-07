@@ -90,5 +90,6 @@
         <module>tummy-search-core</module>
         <module>tummy-search-entity</module>
         <module>tummy-search-rest</module>
+        <module>tummy-search-puppeteer</module>
     </modules>
 </project>

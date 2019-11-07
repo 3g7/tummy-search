@@ -52,7 +52,7 @@ public class AuthenticateService implements IAuthenticateService {
     private Long expiredInterval;
 
     private static Long lastUpdateTimestamp = 0L;
-
+    
     @Override
     @Transactional(readOnly = false)
     public Session authenticate(Passport passport) throws TummyException {

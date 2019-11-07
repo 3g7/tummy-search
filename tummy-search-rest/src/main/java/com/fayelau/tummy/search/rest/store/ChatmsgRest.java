@@ -143,7 +143,7 @@ public class ChatmsgRest {
         }
         ResponseRange<Rank> responseRange = new ResponseRange<>();
         try {
-            Collection<Rank> ranks = this.rankService.rankByTime(start, end, limit);
+            Collection<Rank> ranks = this.rankService.rankByTime(start, end, limit, null);
             responseRange.setData(ranks);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {

@@ -41,6 +41,10 @@ public class Chatmsg extends BaseMongoEntity {
 
     protected String fansBrand; // 粉丝牌名称
 
+    protected String fansTxtLevel; // 弹幕颜色
+
+    protected String nc; // 是否为贵族弹幕
+
     public String getLevel() {
         return level;
     }
@@ -145,6 +149,22 @@ public class Chatmsg extends BaseMongoEntity {
         this.fansBrand = fansBrand;
     }
     
+    public String getFansTxtLevel() {
+        return fansTxtLevel;
+    }
+
+    public void setFansTxtLevel(String fansTxtLevel) {
+        this.fansTxtLevel = fansTxtLevel;
+    }
+
+    public String getNc() {
+        return nc;
+    }
+
+    public void setNc(String nc) {
+        this.nc = nc;
+    }
+
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
@@ -159,5 +179,5 @@ public class Chatmsg extends BaseMongoEntity {
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
     }
-    
+
 }
