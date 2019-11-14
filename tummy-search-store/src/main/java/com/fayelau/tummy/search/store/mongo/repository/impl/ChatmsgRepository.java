@@ -147,7 +147,7 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
     }
 
     @Override
-    public Collection<Rank> rankByTime(Long start, Long end, Long limit, Map<String, Object> domainParams)
+    public Collection<Rank> rankByTime(Chatmsg chatmsg, Long start, Long end, Long limit, Map<String, Object> domainParams)
             throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run ChatmsgRepository.countByTime");

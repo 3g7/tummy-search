@@ -15,7 +15,7 @@
             <artifactId>tummy-search-core</artifactId>
             <version>1.0.1</version>
         </dependency>
-        
+
         <dependency>
             <groupId>com.fayelau</groupId>
             <artifactId>tummy-search-entity</artifactId>
@@ -26,6 +26,14 @@
             <groupId>com.fayelau</groupId>
             <artifactId>tummy-search-store</artifactId>
             <version>1.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fayelau</groupId>
+            <artifactId>tummy-secretary-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/tummy-secretary-api-1.0-SNAPSHOT.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
