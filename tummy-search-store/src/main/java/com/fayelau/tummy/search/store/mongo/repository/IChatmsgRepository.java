@@ -63,5 +63,5 @@ public interface IChatmsgRepository {
      * @return
      * @throws TummyException
      */
-    public Collection<Rank> rankByTime(Long start, Long end, Long limit, Map<String, Object> domainParams) throws TummyException;
+    public Collection<Rank> rankByTime(Chatmsg chatmsg, Long start, Long end, Long limit, Map<String, Object> domainParams) throws TummyException;
 }

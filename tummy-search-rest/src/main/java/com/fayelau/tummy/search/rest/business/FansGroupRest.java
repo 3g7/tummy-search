@@ -11,34 +11,34 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
 import com.fayelau.tummy.base.core.utils.ResponseRange;
-import com.fayelau.tummy.search.entity.GiftInfo;
-import com.fayelau.tummy.search.inter.service.business.IGiftInfoFeatureService;
+import com.fayelau.tummy.search.inter.service.business.IFansGroupService;
+import com.fayelau.tummy.secretary.api.entry.GroupMessageEntity;
 
 /**
- * 礼物信息
+ * 粉丝群请求
  * 
- * @author 3g7 2019-11-13 11:31:45
+ * @author 3g7 2019-11-13 11:28:37
  * @version 0.0.1
  *
  */
 @RestController
-@RequestMapping("gift_info/feature")
-public class GiftInfoFeatureRest {
-
-    private static final Logger logger = LoggerFactory.getLogger(GiftInfoFeatureRest.class);
-
+@RequestMapping("fans_group")
+public class FansGroupRest {
+    
+    private static final Logger logger = LoggerFactory.getLogger(FansGroupRest.class);
+    
     @Autowired
-    private IGiftInfoFeatureService giftInfoFeatureService;
-
+    private IFansGroupService fansGroupService;
+    
     @GetMapping
-    public ResponseRange<GiftInfo> getGiftInfoByDouyu(String roomId) {
+    public ResponseRange<GroupMessageEntity> search(Long groupId, Long userId, int pageIndex, int pageSize){
         if (logger.isDebugEnabled()) {
-            logger.debug("run GiftInfoFeatureRest.getGiftInfoByDouyu");
+            logger.debug("run FansGroupRest.search");
         }
-        ResponseRange<GiftInfo> responseRange = new ResponseRange<>();
+        ResponseRange<GroupMessageEntity> responseRange = new ResponseRange<>();
         try {
-            Collection<GiftInfo> giftInfos = this.giftInfoFeatureService.getGiftInfoForDouyu(roomId);
-            responseRange.setData(giftInfos);
+            Collection<GroupMessageEntity> groupMessageEntities = this.fansGroupService.search(groupId, userId, pageIndex, pageSize);
+            responseRange.setData(groupMessageEntities);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
