@@ -14,7 +14,7 @@ RemoteSystemsTempFiles
 logs
 Servers
 *~
-
+tummy-search-start/src/main/resources/application.yml
 .vscode
 .idea
 *.pyc
