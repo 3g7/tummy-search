@@ -5,31 +5,15 @@
     <parent>
         <groupId>com.fayelau</groupId>
         <artifactId>tummy-search</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.1</version>
     </parent>
     <artifactId>tummy-search-rest</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-databind</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.fayelau</groupId>
             <artifactId>tummy-search-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
 </project>

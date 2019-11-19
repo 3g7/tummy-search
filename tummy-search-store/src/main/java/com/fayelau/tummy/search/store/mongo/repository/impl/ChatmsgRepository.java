@@ -2,6 +2,7 @@ package com.fayelau.tummy.search.store.mongo.repository.impl;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -18,10 +19,10 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
-import com.fayelau.tummy.search.store.mongo.entity.Chatmsg;
-import com.fayelau.tummy.search.store.mongo.pojo.Rank;
+import com.fayelau.tummy.search.core.constants.DefaultConstants;
 import com.fayelau.tummy.search.store.mongo.repository.IChatmsgRepository;
+import com.fayelau.tummy.store.entity.Chatmsg;
+import com.fayelau.tummy.store.pojo.Rank;
 
 /**
  * 弹幕持久化查询实现
@@ -38,11 +39,14 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    private static final String COLLECTION_NAME = "chatmsg";
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public Collection<Chatmsg> search(Chatmsg chatmsg, String sortProperty, Direction direction) throws TummyException {
+    public Collection<Chatmsg> search(Chatmsg chatmsg, String sortProperty, Direction direction,
+            Map<String, Object> domainParams) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run ChatmsgRepository.search");
             logger.debug("params chatmsg:" + chatmsg);
@@ -52,7 +56,10 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
-            return mongoTemplate.find(query, Chatmsg.class);
+            if (domainParams != null && !domainParams.isEmpty()) {
+                query = buildQueryByMap(query, domainParams);
+            }
+            return mongoTemplate.find(query, Chatmsg.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -66,7 +73,7 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
      */
     @Override
     public Collection<Chatmsg> pageableSearch(Chatmsg chatmsg, Integer page, Integer size, String sortProperty,
-            Direction direction) throws TummyException {
+            Direction direction, Map<String, Object> domainParams) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run ChatmsgRepository.pageableSearch");
             logger.debug("params chatmsg:" + chatmsg);
@@ -81,7 +88,10 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
             if (StringUtils.isNotEmpty(sortProperty) && direction != null) {
                 query.with(Sort.by(direction, sortProperty));
             }
-            return mongoTemplate.find(query, Chatmsg.class);
+            if (domainParams != null && !domainParams.isEmpty()) {
+                query = buildQueryByMap(query, domainParams);
+            }
+            return mongoTemplate.find(query, Chatmsg.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -94,14 +104,17 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
      * {@inheritDoc}
      */
     @Override
-    public Long count(Chatmsg chatmsg) throws TummyException {
+    public Long count(Chatmsg chatmsg, Map<String, Object> domainParams) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run ChatmsgRepository.count");
             logger.debug("params chatmsg:" + chatmsg);
         }
         try {
             Query query = buildQuery(chatmsg);
-            return mongoTemplate.count(query, Chatmsg.class);
+            if (domainParams != null && !domainParams.isEmpty()) {
+                query = buildQueryByMap(query, domainParams);
+            }
+            return mongoTemplate.count(query, Chatmsg.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -111,7 +124,8 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
     }
 
     @Override
-    public Long countByTime(Chatmsg chatmsg, Long start, Long end) throws TummyException {
+    public Long countByTime(Chatmsg chatmsg, Long start, Long end, Map<String, Object> domainParams)
+            throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run ChatmsgRepository.countByTime");
             logger.debug("params chatmsg:" + chatmsg);
@@ -120,7 +134,10 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
         }
         try {
             Query query = buildTime(buildQuery(chatmsg), start, end);
-            return mongoTemplate.count(query, Chatmsg.class);
+            if (domainParams != null && !domainParams.isEmpty()) {
+                query = buildQueryByMap(query, domainParams);
+            }
+            return mongoTemplate.count(query, Chatmsg.class, COLLECTION_NAME);
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -130,7 +147,8 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
     }
 
     @Override
-    public Collection<Rank> rankByTime(Long start, Long end, Long limit) throws TummyException {
+    public Collection<Rank> rankByTime(Chatmsg chatmsg, Long start, Long end, Long limit, Map<String, Object> domainParams)
+            throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run ChatmsgRepository.countByTime");
             logger.debug("params start:" + start);
@@ -138,18 +156,24 @@ public class ChatmsgRepository extends BaseRepository implements IChatmsgReposit
             logger.debug("params limit:" + limit);
         }
         try {
-            Criteria criteria = Criteria.where(TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY).gte(start).lte(end);
-            Aggregation aggregation = Aggregation.newAggregation(
-                    Aggregation.match(criteria), Aggregation.group("uid").first("uid").as("uid").first("nickname")
-                            .as("nickname").count().as("count"),
-                    Aggregation.sort(Sort.by(Direction.DESC, "count")), Aggregation.limit(limit));
-
-            AggregationResults<Rank> results = this.mongoTemplate.aggregate(aggregation, Chatmsg.class, Rank.class);
+            Criteria criteria = Criteria.where(DefaultConstants.DEFAULT_SORT_PROPERTY).gte(start).lte(end);
+            if (domainParams != null && !domainParams.isEmpty()) {
+                for (String property : domainParams.keySet()) {
+                    criteria.and(property).is(domainParams.get(property));
+                }
+            }
+            Aggregation aggregation = Aggregation
+                    .newAggregation(Aggregation.match(criteria),
+                            Aggregation.group("uid").last("uid").as("uid").last("nickname").as("nickname")
+                                    .last("avatar").as("avatar").count().as("count"),
+                            Aggregation.sort(Sort.by(Direction.DESC, "count")), Aggregation.limit(limit))
+                    .withOptions(Aggregation.newAggregationOptions().allowDiskUse(true).build());
+            AggregationResults<Rank> results = this.mongoTemplate.aggregate(aggregation, COLLECTION_NAME, Rank.class);
             List<Rank> ranks = results.getMappedResults();
             for (int rankNum = 1; rankNum <= ranks.size(); rankNum++) {
                 ranks.get(rankNum - 1).setRank(rankNum);
             }
-            return ranks;
+            return ranks;  
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

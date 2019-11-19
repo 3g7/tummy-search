@@ -2,6 +2,8 @@ package com.fayelau.tummy.search;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * 肚子平台查询模块启动类
@@ -11,6 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
+@ServletComponentScan
+@EnableTransactionManagement
 public class TummySearchApplication {
 
     public static void main(String[] args) {

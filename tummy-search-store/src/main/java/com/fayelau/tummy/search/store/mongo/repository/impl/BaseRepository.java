@@ -1,12 +1,13 @@
 package com.fayelau.tummy.search.store.mongo.repository.impl;
 
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import com.fayelau.tummy.base.core.utils.CommonUtils;
-import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
+import com.fayelau.tummy.search.core.constants.DefaultConstants;
 import com.mongodb.BasicDBObject;
 
 /**
@@ -28,8 +29,16 @@ public class BaseRepository {
         return query;
     }
     
+    protected Query buildQueryByMap(Query query, Map<String, Object> domainParams) {
+        for (String property : domainParams.keySet()) {
+            Criteria criteria = Criteria.where(property).is(domainParams.get(property));
+            query.addCriteria(criteria);
+        }
+        return query;
+    }
+    
     protected Query buildTime(Query query, Long start, Long end) {
-        Criteria criteria = Criteria.where(TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY).gte(start).lte(end);
+        Criteria criteria = Criteria.where(DefaultConstants.DEFAULT_SORT_PROPERTY).gte(start).lte(end);
         query.addCriteria(criteria);
         return query;
     }

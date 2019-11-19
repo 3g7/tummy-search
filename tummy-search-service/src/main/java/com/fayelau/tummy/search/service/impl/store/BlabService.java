@@ -10,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
+import com.fayelau.tummy.search.core.constants.CommonConstants;
+import com.fayelau.tummy.search.core.constants.DefaultConstants;
 import com.fayelau.tummy.search.dubbo.inter.store.IBlabDubboService;
 import com.fayelau.tummy.search.inter.service.store.IBlabService;
-import com.fayelau.tummy.search.store.mongo.entity.Blab;
 import com.fayelau.tummy.search.store.mongo.repository.IBlabRepository;
+import com.fayelau.tummy.store.entity.Blab;
 
 /**
  * 粉丝牌升级业务层实现
@@ -32,7 +33,7 @@ public class BlabService implements IBlabDubboService, IBlabService {
     private IBlabRepository blabRepository;
 
     @Override
-    public Collection<Blab> search(Blab blab, String sortProperty, Direction direction) throws TummyException {
+    public Collection<Blab> search(Blab blab, String sortProperty, String direction) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run BlabService.search");
             logger.debug("params blab:" + blab);
@@ -40,7 +41,11 @@ public class BlabService implements IBlabDubboService, IBlabService {
             logger.debug("params direction:" + direction);
         }
         try {
-            return this.blabRepository.search(blab, sortProperty, direction);
+            Direction d = Direction.DESC;
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+                d = Direction.ASC;
+            }
+            return this.blabRepository.search(blab, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -56,7 +61,7 @@ public class BlabService implements IBlabDubboService, IBlabService {
 
     @Override
     public Collection<Blab> pageableSearch(Blab blab, Integer page, Integer size, String sortProperty,
-            Direction direction) throws TummyException {
+            String direction) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run BlabService.search");
             logger.debug("params page:" + page);
@@ -65,7 +70,11 @@ public class BlabService implements IBlabDubboService, IBlabService {
             logger.debug("params direction:" + direction);
         }
         try {
-            return this.blabRepository.pageableSearch(blab, page, size, sortProperty, direction);
+            Direction d = Direction.DESC;
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+                d = Direction.ASC;
+            }
+            return this.blabRepository.pageableSearch(blab, page, size, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -89,15 +98,15 @@ public class BlabService implements IBlabDubboService, IBlabService {
             if (!StringUtils.isEmpty(blab.getNickname())) {
                 Blab search = new Blab();
                 search.setNickname(blab.getNickname());
-                Collection<Blab> blabs = blabRepository.pageableSearch(search, 1, 1, TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY,
-                        Direction.DESC);
+                Collection<Blab> blabs = blabRepository.pageableSearch(search, 1, 1, DefaultConstants.DEFAULT_SORT_PROPERTY,
+                        Direction.DESC, null);
                 if (blabs.isEmpty()) {
                     return 0L;
                 }
                 blab.setUid(blabs.iterator().next().getUid());
                 blab.setNickname(null);
             }
-            return this.blabRepository.count(blab);
+            return this.blabRepository.count(blab, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

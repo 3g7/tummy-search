@@ -10,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.core.constants.TummySearchDefaultConstants;
+import com.fayelau.tummy.search.core.constants.CommonConstants;
+import com.fayelau.tummy.search.core.constants.DefaultConstants;
 import com.fayelau.tummy.search.core.utils.TimeUtils;
 import com.fayelau.tummy.search.dubbo.inter.store.IChatmsgDubboService;
 import com.fayelau.tummy.search.inter.service.store.IChatmsgService;
-import com.fayelau.tummy.search.store.mongo.entity.Chatmsg;
 import com.fayelau.tummy.search.store.mongo.repository.IChatmsgRepository;
+import com.fayelau.tummy.store.entity.Chatmsg;
 
 /**
  * 弹幕业务层实现
@@ -33,7 +34,7 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
     private IChatmsgRepository chatmsgRepository;
 
     @Override
-    public Collection<Chatmsg> search(Chatmsg chatmsg, String sortProperty, Direction direction) throws TummyException {
+    public Collection<Chatmsg> search(Chatmsg chatmsg, String sortProperty, String direction) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run ChatmsgService.search");
             logger.debug("params chatmsg:" + chatmsg);
@@ -41,7 +42,11 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
             logger.debug("params direction:" + direction);
         }
         try {
-            return this.chatmsgRepository.search(chatmsg, sortProperty, direction);
+            Direction d = Direction.DESC;
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+                d = Direction.ASC;
+            }
+            return this.chatmsgRepository.search(chatmsg, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -57,7 +62,7 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
 
     @Override
     public Collection<Chatmsg> pageableSearch(Chatmsg chatmsg, Integer page, Integer size, String sortProperty,
-            Direction direction) throws TummyException {
+            String direction) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run ChatmsgService.search");
             logger.debug("params page:" + page);
@@ -66,7 +71,11 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
             logger.debug("params direction:" + direction);
         }
         try {
-            return this.chatmsgRepository.pageableSearch(chatmsg, page, size, sortProperty, direction);
+            Direction d = Direction.DESC;
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+                d = Direction.ASC;
+            }
+            return this.chatmsgRepository.pageableSearch(chatmsg, page, size, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -90,15 +99,15 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
             if (!StringUtils.isEmpty(chatmsg.getNickname())) {
                 Chatmsg search = new Chatmsg();
                 search.setNickname(chatmsg.getNickname());
-                Collection<Chatmsg> chatmsgs = chatmsgRepository.pageableSearch(search, 1, 1, TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY,
-                        Direction.DESC);
+                Collection<Chatmsg> chatmsgs = chatmsgRepository.pageableSearch(search, 1, 1, DefaultConstants.DEFAULT_SORT_PROPERTY,
+                        Direction.DESC, null);
                 if (chatmsgs.isEmpty()) {
                     return 0L;
                 }
                 chatmsg.setUid(chatmsgs.iterator().next().getUid());
                 chatmsg.setNickname(null);
             }
-            return this.chatmsgRepository.count(chatmsg);
+            return this.chatmsgRepository.count(chatmsg, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -122,8 +131,8 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
             if (!StringUtils.isEmpty(chatmsg.getNickname())) {
                 Chatmsg search = new Chatmsg();
                 search.setNickname(chatmsg.getNickname());
-                Collection<Chatmsg> chatmsgs = chatmsgRepository.pageableSearch(search, 1, 1, TummySearchDefaultConstants.DEFAULT_SORT_PROPERTY,
-                        Direction.DESC);
+                Collection<Chatmsg> chatmsgs = chatmsgRepository.pageableSearch(search, 1, 1, DefaultConstants.DEFAULT_SORT_PROPERTY,
+                        Direction.DESC, null);
                 if (chatmsgs.isEmpty()) {
                     return 0L;
                 }
@@ -132,7 +141,7 @@ public class ChatmsgService implements IChatmsgDubboService, IChatmsgService {
             }
             Long startTime = TimeUtils.dateStr2TimeStamp(start);
             Long endTime = TimeUtils.dateStr2TimeStamp(end);
-            return this.chatmsgRepository.countByTime(chatmsg, startTime, endTime);
+            return this.chatmsgRepository.countByTime(chatmsg, startTime, endTime, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

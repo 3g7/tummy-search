@@ -2,10 +2,7 @@ package com.fayelau.tummy.search.dubbo.inter.store;
 
 import java.util.Collection;
 
-import org.springframework.data.domain.Sort.Direction;
-
-import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.entity.Blab;
+import com.fayelau.tummy.store.entity.Blab;
 
 /**
  * 粉丝牌升级信息业务层接口
@@ -23,9 +20,9 @@ public interface IBlabDubboService {
      * @param page
      * @param size
      * @return
-     * @throws TummyException
+     * @throws Exception
      */
     public Collection<Blab> pageableSearch(Blab blab, Integer page, Integer size, String sortProperty,
-            Direction direction) throws TummyException;
+            String direction) throws Exception;
 
 }

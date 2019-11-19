@@ -1,6 +1,7 @@
 package com.fayelau.tummy.search.service.impl.business;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
@@ -11,8 +12,9 @@ import com.fayelau.tummy.base.core.exception.TummyExCode;
 import com.fayelau.tummy.base.core.exception.TummyException;
 import com.fayelau.tummy.search.dubbo.inter.business.IRankDubboService;
 import com.fayelau.tummy.search.inter.service.business.IRankService;
-import com.fayelau.tummy.search.store.mongo.pojo.Rank;
 import com.fayelau.tummy.search.store.mongo.repository.IChatmsgRepository;
+import com.fayelau.tummy.store.entity.Chatmsg;
+import com.fayelau.tummy.store.pojo.Rank;
 
 /**
  * 排行榜相关实现
@@ -30,7 +32,7 @@ public class RankService implements IRankDubboService, IRankService {
     private IChatmsgRepository chatmsgRepository;
 
     @Override
-    public Collection<Rank> rankByTime(Long start, Long end, Long limit) throws TummyException {
+    public Collection<Rank> rankByTime(Long start, Long end, Long limit, Map<String, Object> domainParams) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run RankService.rankByTime");
             logger.debug("params start:" + start);
@@ -47,7 +49,7 @@ public class RankService implements IRankDubboService, IRankService {
             if (limit == null) {
                 throw TummyException.getException(TummyExCode.PARAMETER_NULL);
             }
-            return chatmsgRepository.rankByTime(start, end, limit);
+            return chatmsgRepository.rankByTime(new Chatmsg(), start, end, limit, domainParams);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

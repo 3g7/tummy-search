@@ -1,11 +1,12 @@
 package com.fayelau.tummy.search.store.mongo.repository;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.entity.Blab;
+import com.fayelau.tummy.store.entity.Blab;
 
 /**
  * 粉丝牌升级实体持久化查询接口
@@ -23,7 +24,7 @@ public interface IBlabRepository {
      * @return
      * @throws TummyException
      */
-    public Collection<Blab> search(Blab blab, String sortProperty, Direction direction) throws TummyException;
+    public Collection<Blab> search(Blab blab, String sortProperty, Direction direction, Map<String, Object> domainParams) throws TummyException;
 
     /**
      * 分页查询实体集合
@@ -35,7 +36,7 @@ public interface IBlabRepository {
      * @throws TummyException
      */
     public Collection<Blab> pageableSearch(Blab blab, Integer page, Integer size, String sortProperty,
-            Direction direction) throws TummyException;
+            Direction direction, Map<String, Object> domainParams) throws TummyException;
     
     /**
      * 查询数据条数根据条件
@@ -43,6 +44,6 @@ public interface IBlabRepository {
      * @return
      * @throws TummyException
      */
-    public Long count(Blab blab) throws TummyException;
+    public Long count(Blab blab, Map<String, Object> domainParams) throws TummyException;
 
 }

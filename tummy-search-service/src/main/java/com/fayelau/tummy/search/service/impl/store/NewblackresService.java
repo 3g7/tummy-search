@@ -9,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
+import com.fayelau.tummy.search.core.constants.CommonConstants;
 import com.fayelau.tummy.search.dubbo.inter.store.INewblackresDubboService;
 import com.fayelau.tummy.search.inter.service.store.INewblackresService;
-import com.fayelau.tummy.search.store.mongo.entity.Newblackres;
 import com.fayelau.tummy.search.store.mongo.repository.INewblackresRepository;
+import com.fayelau.tummy.store.entity.Newblackres;
 
 /**
  * 黑名单回执业务层接口
@@ -30,7 +31,7 @@ public class NewblackresService implements INewblackresDubboService, INewblackre
     private INewblackresRepository newblackresRepository;
 
     @Override
-    public Collection<Newblackres> search(Newblackres newblackres, String sortProperty, Direction direction)
+    public Collection<Newblackres> search(Newblackres newblackres, String sortProperty, String direction)
             throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run NewblackresService.search");
@@ -39,7 +40,11 @@ public class NewblackresService implements INewblackresDubboService, INewblackre
             logger.debug("params direction:" + direction);
         }
         try {
-            return this.newblackresRepository.search(newblackres, sortProperty, direction);
+            Direction d = Direction.DESC;
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+                d = Direction.ASC;
+            }
+            return this.newblackresRepository.search(newblackres, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -55,7 +60,7 @@ public class NewblackresService implements INewblackresDubboService, INewblackre
 
     @Override
     public Collection<Newblackres> pageableSearch(Newblackres newblackres, Integer page, Integer size,
-            String sortProperty, Direction direction) throws TummyException {
+            String sortProperty, String direction) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run NewblackresService.search");
             logger.debug("params page:" + page);
@@ -64,7 +69,11 @@ public class NewblackresService implements INewblackresDubboService, INewblackre
             logger.debug("params direction:" + direction);
         }
         try {
-            return this.newblackresRepository.pageableSearch(newblackres, page, size, sortProperty, direction);
+            Direction d = Direction.DESC;
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+                d = Direction.ASC;
+            }
+            return this.newblackresRepository.pageableSearch(newblackres, page, size, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -85,7 +94,7 @@ public class NewblackresService implements INewblackresDubboService, INewblackre
             logger.debug("params newblackres:" + newblackres);
         }
         try {
-            return this.newblackresRepository.count(newblackres);
+            return this.newblackresRepository.count(newblackres, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);

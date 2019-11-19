@@ -2,10 +2,8 @@ package com.fayelau.tummy.search.inter.service.store;
 
 import java.util.Collection;
 
-import org.springframework.data.domain.Sort.Direction;
-
 import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.entity.Uenter;
+import com.fayelau.tummy.store.entity.Uenter;
 
 /**
  * 入场信息业务层接口
@@ -23,7 +21,7 @@ public interface IUenterService {
      * @return
      * @throws TummyException
      */
-    public Collection<Uenter> search(Uenter uenter, String sortProperty, Direction direction) throws TummyException;
+    public Collection<Uenter> search(Uenter uenter, String sortProperty, String direction) throws TummyException;
 
     /**
      * 分页查询实体集合
@@ -35,7 +33,7 @@ public interface IUenterService {
      * @throws TummyException
      */
     public Collection<Uenter> pageableSearch(Uenter uenter, Integer page, Integer size, String sortProperty,
-            Direction direction) throws TummyException;
+            String direction) throws TummyException;
     
     /**
      * 查询数据条数根据条件

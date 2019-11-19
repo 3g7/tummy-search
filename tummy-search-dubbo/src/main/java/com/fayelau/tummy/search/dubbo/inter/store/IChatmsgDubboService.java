@@ -2,10 +2,7 @@ package com.fayelau.tummy.search.dubbo.inter.store;
 
 import java.util.Collection;
 
-import org.springframework.data.domain.Sort.Direction;
-
-import com.fayelau.tummy.base.core.exception.TummyException;
-import com.fayelau.tummy.search.store.mongo.entity.Chatmsg;
+import com.fayelau.tummy.store.entity.Chatmsg;
 
 /**
  * 弹幕信息业务层接口
@@ -23,18 +20,18 @@ public interface IChatmsgDubboService {
      * @param page
      * @param size
      * @return
-     * @throws TummyException
+     * @throws Exception
      */
     public Collection<Chatmsg> pageableSearch(Chatmsg chatmsg, Integer page, Integer size, String sortProperty,
-            Direction direction) throws TummyException;
+            String direction) throws Exception;
 
     /**
      * 查询数据条数根据条件
      * 
      * @param chatmsg
      * @return
-     * @throws TummyException
+     * @throws Exception
      */
-    public Long count(Chatmsg chatmsg) throws TummyException;
+    public Long count(Chatmsg chatmsg) throws Exception;
 
 }

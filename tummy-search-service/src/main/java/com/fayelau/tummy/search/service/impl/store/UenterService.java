@@ -9,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.fayelau.tummy.base.core.exception.TummyException;
+import com.fayelau.tummy.search.core.constants.CommonConstants;
 import com.fayelau.tummy.search.dubbo.inter.store.IUenterDubboService;
 import com.fayelau.tummy.search.inter.service.store.IUenterService;
-import com.fayelau.tummy.search.store.mongo.entity.Uenter;
 import com.fayelau.tummy.search.store.mongo.repository.IUenterRepository;
+import com.fayelau.tummy.store.entity.Uenter;
 
 /**
  * 入场业务层接口
@@ -30,7 +31,7 @@ public class UenterService implements IUenterDubboService, IUenterService {
     private IUenterRepository uenterRepository;
 
     @Override
-    public Collection<Uenter> search(Uenter uenter, String sortProperty, Direction direction) throws TummyException {
+    public Collection<Uenter> search(Uenter uenter, String sortProperty, String direction) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run UenterService.search");
             logger.debug("params uenter:" + uenter);
@@ -38,7 +39,11 @@ public class UenterService implements IUenterDubboService, IUenterService {
             logger.debug("params direction:" + direction);
         }
         try {
-            return this.uenterRepository.search(uenter, sortProperty, direction);
+            Direction d = Direction.DESC;
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+                d = Direction.ASC;
+            }
+            return this.uenterRepository.search(uenter, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -54,7 +59,7 @@ public class UenterService implements IUenterDubboService, IUenterService {
 
     @Override
     public Collection<Uenter> pageableSearch(Uenter uenter, Integer page, Integer size, String sortProperty,
-            Direction direction) throws TummyException {
+            String direction) throws TummyException {
         if (logger.isDebugEnabled()) {
             logger.debug("run UenterService.search");
             logger.debug("params page:" + page);
@@ -63,7 +68,11 @@ public class UenterService implements IUenterDubboService, IUenterService {
             logger.debug("params direction:" + direction);
         }
         try {
-            return this.uenterRepository.pageableSearch(uenter, page, size, sortProperty, direction);
+            Direction d = Direction.DESC;
+            if (direction.equals(CommonConstants.DIRECTION_ASC)) {
+                d = Direction.ASC;
+            }
+            return this.uenterRepository.pageableSearch(uenter, page, size, sortProperty, d, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
@@ -84,7 +93,7 @@ public class UenterService implements IUenterDubboService, IUenterService {
             logger.debug("params uenter:" + uenter);
         }
         try {
-            return this.uenterRepository.count(uenter);
+            return this.uenterRepository.count(uenter, null);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
