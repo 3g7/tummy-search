@@ -2,6 +2,7 @@ package com.fayelau.tummy.search.rest.store;
 
 import java.util.Collection;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +27,27 @@ import com.fayelau.tummy.store.entity.Uenter;
 @RestController
 @RequestMapping("uenter")
 public class UenterRest {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(UenterRest.class);
 
     @Autowired
     private IUenterService uenterService;
 
     @GetMapping
-    public ResponseRange<Uenter> search(Uenter uenter) {
+    public ResponseRange<Uenter> search(Uenter uenter, String sortProperty, String direction) {
         if (logger.isDebugEnabled()) {
             logger.debug("run UenterRest.search");
             logger.debug("params uenter:" + uenter);
         }
         ResponseRange<Uenter> responseRange = new ResponseRange<>();
         try {
-            Collection<Uenter> uenters = this.uenterService.search(uenter,
-                    DefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
+            if (StringUtils.isEmpty(sortProperty)) {
+                sortProperty = DefaultConstants.DEFAULT_SORT_PROPERTY;
+            }
+            if (StringUtils.isEmpty(direction)) {
+                direction = CommonConstants.DIRECTION_DESC;
+            }
+            Collection<Uenter> uenters = this.uenterService.search(uenter, sortProperty, direction);
             responseRange.setData(uenters);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
@@ -58,7 +64,8 @@ public class UenterRest {
     }
 
     @GetMapping(params = { "pageable=true" })
-    public ResponseRange<Uenter> pageableSearch(Uenter uenter, Integer page, Integer size) {
+    public ResponseRange<Uenter> pageableSearch(Uenter uenter, Integer page, Integer size, String sortProperty,
+            String direction) {
         if (logger.isDebugEnabled()) {
             logger.debug("run UenterRest.pageableSearch");
             logger.debug("params uenter:" + uenter);
@@ -72,8 +79,13 @@ public class UenterRest {
                 size = 20;
             }
             responseRange.openPage(page, size);
-            Collection<Uenter> uenters = this.uenterService.pageableSearch(uenter, page, size,
-                    DefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
+            if (StringUtils.isEmpty(sortProperty)) {
+                sortProperty = DefaultConstants.DEFAULT_SORT_PROPERTY;
+            }
+            if (StringUtils.isEmpty(direction)) {
+                direction = CommonConstants.DIRECTION_DESC;
+            }
+            Collection<Uenter> uenters = this.uenterService.pageableSearch(uenter, page, size, sortProperty, direction);
             responseRange.setData(uenters);
             responseRange.setTotal(this.uenterService.count(uenter));
         } catch (TummyException e) {
@@ -89,7 +101,7 @@ public class UenterRest {
         }
         return responseRange;
     }
-    
+
     @GetMapping("count")
     public ResponseRange<Long> count(Uenter uenter) {
         if (logger.isDebugEnabled()) {

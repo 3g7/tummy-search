@@ -2,6 +2,7 @@ package com.fayelau.tummy.search.rest.store;
 
 import java.util.Collection;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +27,27 @@ import com.fayelau.tummy.store.entity.Dgb;
 @RestController
 @RequestMapping("dgb")
 public class DgbRest {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(DgbRest.class);
 
     @Autowired
     private IDgbService dgbService;
 
     @GetMapping
-    public ResponseRange<Dgb> search(Dgb dgb) {
+    public ResponseRange<Dgb> search(Dgb dgb, String sortProperty, String direction) {
         if (logger.isDebugEnabled()) {
             logger.debug("run DgbRest.search");
             logger.debug("params dgb:" + dgb);
         }
         ResponseRange<Dgb> responseRange = new ResponseRange<>();
         try {
-            Collection<Dgb> dgbs = this.dgbService.search(dgb,
-                    DefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
+            if (StringUtils.isEmpty(sortProperty)) {
+                sortProperty = DefaultConstants.DEFAULT_SORT_PROPERTY;
+            }
+            if (StringUtils.isEmpty(direction)) {
+                direction = CommonConstants.DIRECTION_DESC;
+            }
+            Collection<Dgb> dgbs = this.dgbService.search(dgb, sortProperty, direction);
             responseRange.setData(dgbs);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
@@ -58,7 +64,8 @@ public class DgbRest {
     }
 
     @GetMapping(params = { "pageable=true" })
-    public ResponseRange<Dgb> pageableSearch(Dgb dgb, Integer page, Integer size) {
+    public ResponseRange<Dgb> pageableSearch(Dgb dgb, Integer page, Integer size, String sortProperty,
+            String direction) {
         if (logger.isDebugEnabled()) {
             logger.debug("run DgbRest.pageableSearch");
             logger.debug("params dgb:" + dgb);
@@ -72,8 +79,13 @@ public class DgbRest {
                 size = 20;
             }
             responseRange.openPage(page, size);
-            Collection<Dgb> dgbs = this.dgbService.pageableSearch(dgb, page, size,
-                    DefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
+            if (StringUtils.isEmpty(sortProperty)) {
+                sortProperty = DefaultConstants.DEFAULT_SORT_PROPERTY;
+            }
+            if (StringUtils.isEmpty(direction)) {
+                direction = CommonConstants.DIRECTION_DESC;
+            }
+            Collection<Dgb> dgbs = this.dgbService.pageableSearch(dgb, page, size, sortProperty, direction);
             responseRange.setData(dgbs);
             responseRange.setTotal(this.dgbService.count(dgb));
         } catch (TummyException e) {
@@ -89,7 +101,7 @@ public class DgbRest {
         }
         return responseRange;
     }
-    
+
     @GetMapping("count")
     public ResponseRange<Long> count(Dgb dgb) {
         if (logger.isDebugEnabled()) {

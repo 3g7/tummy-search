@@ -36,20 +36,25 @@ public class ChatmsgRest {
 
     @Autowired
     private IChatmsgService chatmsgService;
-    
+
     @Autowired
     private IRankService rankService;
 
     @GetMapping
-    public ResponseRange<Chatmsg> search(Chatmsg chatmsg) {
+    public ResponseRange<Chatmsg> search(Chatmsg chatmsg, String sortProperty, String direction) {
         if (logger.isDebugEnabled()) {
             logger.debug("run ChatmsgRest.search");
             logger.debug("params chatmsg:" + chatmsg);
         }
         ResponseRange<Chatmsg> responseRange = new ResponseRange<>();
         try {
-            Collection<Chatmsg> chatmsgs = this.chatmsgService.search(chatmsg,
-                    DefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
+            if (StringUtils.isEmpty(sortProperty)) {
+                sortProperty = DefaultConstants.DEFAULT_SORT_PROPERTY;
+            }
+            if (StringUtils.isEmpty(direction)) {
+                direction = CommonConstants.DIRECTION_DESC;
+            }
+            Collection<Chatmsg> chatmsgs = this.chatmsgService.search(chatmsg, sortProperty, direction);
             responseRange.setData(chatmsgs);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
@@ -66,7 +71,8 @@ public class ChatmsgRest {
     }
 
     @GetMapping(params = { "pageable=true" })
-    public ResponseRange<Chatmsg> pageableSearch(Chatmsg chatmsg, Integer page, Integer size) {
+    public ResponseRange<Chatmsg> pageableSearch(Chatmsg chatmsg, Integer page, Integer size, String sortProperty,
+            String direction) {
         if (logger.isDebugEnabled()) {
             logger.debug("run ChatmsgRest.pageableSearch");
             logger.debug("params chatmsg:" + chatmsg);
@@ -80,8 +86,14 @@ public class ChatmsgRest {
                 size = 20;
             }
             responseRange.openPage(page, size);
-            Collection<Chatmsg> chatmsgs = this.chatmsgService.pageableSearch(chatmsg, page, size,
-                    DefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
+            if (StringUtils.isEmpty(sortProperty)) {
+                sortProperty = DefaultConstants.DEFAULT_SORT_PROPERTY;
+            }
+            if (StringUtils.isEmpty(direction)) {
+                direction = CommonConstants.DIRECTION_DESC;
+            }
+            Collection<Chatmsg> chatmsgs = this.chatmsgService.pageableSearch(chatmsg, page, size, sortProperty,
+                    direction);
             responseRange.setData(chatmsgs);
             responseRange.setTotal(this.chatmsgService.count(chatmsg));
         } catch (TummyException e) {
@@ -132,7 +144,7 @@ public class ChatmsgRest {
         }
         return responseRange;
     }
-    
+
     @GetMapping("rank")
     public ResponseRange<Rank> rankByTime(Long start, Long end, Long limit) {
         if (logger.isDebugEnabled()) {

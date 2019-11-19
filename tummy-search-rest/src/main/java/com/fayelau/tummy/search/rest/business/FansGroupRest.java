@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fayelau.tummy.base.core.exception.TummyExCode;
 import com.fayelau.tummy.base.core.exception.TummyException;
 import com.fayelau.tummy.base.core.utils.ResponseRange;
 import com.fayelau.tummy.search.inter.service.business.IFansGroupService;
@@ -31,12 +32,17 @@ public class FansGroupRest {
     private IFansGroupService fansGroupService;
     
     @GetMapping
-    public ResponseRange<GroupMessageEntity> search(Long groupId, Long userId, int pageIndex, int pageSize){
+    public ResponseRange<GroupMessageEntity> search(Long groupId, Long userId, Integer pageIndex, Integer pageSize){
         if (logger.isDebugEnabled()) {
             logger.debug("run FansGroupRest.search");
         }
         ResponseRange<GroupMessageEntity> responseRange = new ResponseRange<>();
         try {
+            if (groupId == null) {
+                throw TummyException.getException(TummyExCode.PARAMETER_NULL);
+            }
+            if (pageIndex == null) pageIndex = 1;
+            if (pageSize == null) pageSize = 20;
             Collection<GroupMessageEntity> groupMessageEntities = this.fansGroupService.search(groupId, userId, pageIndex, pageSize);
             responseRange.setData(groupMessageEntities);
         } catch (TummyException e) {

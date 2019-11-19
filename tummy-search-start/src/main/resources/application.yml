@@ -81,4 +81,5 @@ dubbo:
   scan:
     base-packages: com.fayelau.tummy.search.service.impl
   registry:
-    address: zookeeper://control.fayelau.com:12181
+    address: zookeeper://aliyun.fayelau.com:12181
+    #address: zookeeper://control.fayelau.com:12181

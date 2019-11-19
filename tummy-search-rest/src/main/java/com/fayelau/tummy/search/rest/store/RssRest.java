@@ -2,6 +2,7 @@ package com.fayelau.tummy.search.rest.store;
 
 import java.util.Collection;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +27,27 @@ import com.fayelau.tummy.store.entity.Rss;
 @RestController
 @RequestMapping("rss")
 public class RssRest {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(RssRest.class);
 
     @Autowired
     private IRssService rssService;
 
     @GetMapping
-    public ResponseRange<Rss> search(Rss rss) {
+    public ResponseRange<Rss> search(Rss rss, String sortProperty, String direction) {
         if (logger.isDebugEnabled()) {
             logger.debug("run RssRest.search");
             logger.debug("params rss:" + rss);
         }
         ResponseRange<Rss> responseRange = new ResponseRange<>();
         try {
-            Collection<Rss> rsses = this.rssService.search(rss,
-                    DefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
+            if (StringUtils.isEmpty(sortProperty)) {
+                sortProperty = DefaultConstants.DEFAULT_SORT_PROPERTY;
+            }
+            if (StringUtils.isEmpty(direction)) {
+                direction = CommonConstants.DIRECTION_DESC;
+            }
+            Collection<Rss> rsses = this.rssService.search(rss, sortProperty, direction);
             responseRange.setData(rsses);
         } catch (TummyException e) {
             if (logger.isErrorEnabled()) {
@@ -58,7 +64,8 @@ public class RssRest {
     }
 
     @GetMapping(params = { "pageable=true" })
-    public ResponseRange<Rss> pageableSearch(Rss rss, Integer page, Integer size) {
+    public ResponseRange<Rss> pageableSearch(Rss rss, Integer page, Integer size, String sortProperty,
+            String direction) {
         if (logger.isDebugEnabled()) {
             logger.debug("run RssRest.pageableSearch");
             logger.debug("params rss:" + rss);
@@ -72,8 +79,13 @@ public class RssRest {
                 size = 20;
             }
             responseRange.openPage(page, size);
-            Collection<Rss> rsses = this.rssService.pageableSearch(rss, page, size,
-                    DefaultConstants.DEFAULT_SORT_PROPERTY, CommonConstants.DIRECTION_DESC);
+            if (StringUtils.isEmpty(sortProperty)) {
+                sortProperty = DefaultConstants.DEFAULT_SORT_PROPERTY;
+            }
+            if (StringUtils.isEmpty(direction)) {
+                direction = CommonConstants.DIRECTION_DESC;
+            }
+            Collection<Rss> rsses = this.rssService.pageableSearch(rss, page, size, sortProperty, direction);
             responseRange.setData(rsses);
             responseRange.setTotal(this.rssService.count(rss));
         } catch (TummyException e) {
@@ -89,7 +101,7 @@ public class RssRest {
         }
         return responseRange;
     }
-    
+
     @GetMapping("count")
     public ResponseRange<Long> count(Rss rss) {
         if (logger.isDebugEnabled()) {
