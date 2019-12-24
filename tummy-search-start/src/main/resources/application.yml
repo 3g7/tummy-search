@@ -4,7 +4,7 @@ server:
 tummy:
   search:
     security:
-      expiredInterval: 600000
+      expiredInterval: 60000000
    
 spring:
   application:

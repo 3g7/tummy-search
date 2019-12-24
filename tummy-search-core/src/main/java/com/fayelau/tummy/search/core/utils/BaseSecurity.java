@@ -55,7 +55,7 @@ public class BaseSecurity {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(BaseSecurity.MD5("fayelau", "fayelau"));
+		System.out.println(BaseSecurity.MD5("834562", "qlzh"));
 	}
 	
 	
